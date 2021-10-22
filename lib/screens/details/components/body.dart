@@ -3,7 +3,7 @@ import 'package:square_one_mobile_app/components/default_button.dart';
 import 'package:square_one_mobile_app/models/Product.dart';
 import 'package:square_one_mobile_app/size_config.dart';
 
-import 'color_dots.dart';
+import 'quantity_counter.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
 import 'product_images.dart';
@@ -30,7 +30,7 @@ class Body extends StatelessWidget {
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots(),
+                    Quantitycounter(),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(
