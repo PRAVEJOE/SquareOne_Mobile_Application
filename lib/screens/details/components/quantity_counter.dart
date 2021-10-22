@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:square_one_mobile_app/components/rounded_icon_btn.dart';
-import 'package:square_one_mobile_app/models/Product.dart';
 
-import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class Quantitycounter extends StatefulWidget {
@@ -13,24 +11,26 @@ class Quantitycounter extends StatefulWidget {
 }
 
 class _QuantitycounterState extends State<Quantitycounter> {
-  int quantity =0;
+  int quantity = 0;
+
   void add() {
     setState(() {
       quantity++;
     });
   }
+
   void minus() {
     setState(() {
-      if (quantity != 0)
-        quantity--;
+      if (quantity != 0) quantity--;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     int selectedColor = 3;
     return Padding(
       padding:
-      EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
         children: [
           Text(
@@ -49,8 +49,7 @@ class _QuantitycounterState extends State<Quantitycounter> {
               showShadow: true,
               press: () {
                 add();
-              }
-          ),
+              }),
         ],
       ),
     );
