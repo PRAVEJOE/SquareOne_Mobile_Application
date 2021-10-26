@@ -30,7 +30,6 @@ List<Product> demoProducts = [
       "assets/images/black_velvet_1.jpeg",
       "assets/images/black_velvet_2.jpeg",
       "assets/images/black_velvet_3.jpeg",
-      "assets/images/black_velvet_4.jpeg",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -132,7 +131,6 @@ List<Product> demoProducts2 = [
       "assets/images/black_velvet_1.jpeg",
       "assets/images/black_velvet_2.jpeg",
       "assets/images/black_velvet_3.jpeg",
-      "assets/images/black_velvet_4.jpeg",
     ],
     colors: [
       Color(0xFFF6625E),

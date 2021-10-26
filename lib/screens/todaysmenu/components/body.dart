@@ -21,18 +21,14 @@ class Body extends StatelessWidget {
                 padding:
                 EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(2)),
                 child: Text(
-                  "This Week's Menu",
+                  "Today's Menu",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 )
-            ),
-            SizedBox(height: getProportionateScreenHeight(20.0)),
-            Date_Picker(),
-            Slot_Chooser(),
-            SizedBox(height: getProportionateScreenHeight(20.0)),
+            ),SizedBox(height: getProportionateScreenWidth(10.0)),
             CategorySelector_2(),
             PreBookProducts(),
             SizedBox(height: getProportionateScreenWidth(30.0)),

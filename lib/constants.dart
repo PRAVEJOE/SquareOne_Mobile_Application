@@ -3,6 +3,7 @@ import 'package:square_one_mobile_app/size_config.dart';
 
 const kPrimaryColor = Color(0xFF000000);
 const kPrimaryLightColor = Color(0xFFFFECDF);
+
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
