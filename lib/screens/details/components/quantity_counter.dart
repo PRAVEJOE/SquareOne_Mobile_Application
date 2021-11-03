@@ -32,15 +32,9 @@ class _QuantitycounterState extends State<Quantitycounter> {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: Row(
-
         children: [
-
-          Text(
-            "Quantity ",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20)
-          ),
+          Text("Quantity ",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
           Spacer(),
           RoundedIconBtn(
             icon: Icons.remove,
@@ -49,12 +43,9 @@ class _QuantitycounterState extends State<Quantitycounter> {
             },
           ),
           SizedBox(width: getProportionateScreenWidth(20)),
-        Text(
-          "$quantity ",
-            style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20)
-        ),SizedBox(width: getProportionateScreenWidth(20)),
+          Text("$quantity ",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+          SizedBox(width: getProportionateScreenWidth(20)),
           RoundedIconBtn(
               icon: Icons.add,
               showShadow: true,

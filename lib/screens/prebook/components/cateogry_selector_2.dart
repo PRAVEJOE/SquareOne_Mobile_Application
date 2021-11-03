@@ -14,77 +14,87 @@ class CategorySelector_2 extends StatefulWidget {
 
 class _CategorySelector_2State extends State<CategorySelector_2> {
   int cupertinoTabBarVIIIValue = 0;
+
   int cupertinoTabBarVIIIValueGetter() => cupertinoTabBarVIIIValue;
+
   @override
   Widget build(BuildContext context) {
-    return
-      Column(
-          children:[Padding(
-      padding:
-      EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-    child: SectionTitle(title: "Categories", press: () {}),
-    ),
-        Container(
-          width: double.infinity,
-          margin: EdgeInsets.fromLTRB(getProportionateScreenWidth(20),getProportionateScreenWidth(4),getProportionateScreenWidth(20),getProportionateScreenWidth(20)),
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(1),
-            vertical: getProportionateScreenWidth(2),
-          ),
-          decoration: BoxDecoration(
-            color: Color(0xFFFFFFFF),
-            borderRadius: BorderRadius.circular(15),
-          ),
-      child:
-        CupertinoTabBar.CupertinoTabBar(
+    return Column(children: [
+      Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        child: SectionTitle(title: "Categories", press: () {}),
+      ),
+      Container(
+        width: double.infinity,
+        margin: EdgeInsets.fromLTRB(
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(1),
+          vertical: getProportionateScreenWidth(2),
+        ),
+        decoration: BoxDecoration(
+          color: Color(0xFFFFFFFF),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: CupertinoTabBar.CupertinoTabBar(
           const Color(0xFFFFFFFF),
           const Color(0xFFFFFFFF),
           [
             Text(
               "All",
               style: TextStyle(
-                color: cupertinoTabBarVIIIValue == 0 ? Colors.black : Colors.grey,
+                color:
+                    cupertinoTabBarVIIIValue == 0 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
             Text(
               "Cake",
               style: TextStyle(
-                color: cupertinoTabBarVIIIValue == 1 ? Colors.black : Colors.grey,
+                color:
+                    cupertinoTabBarVIIIValue == 1 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
             Text(
               "Snacks",
-              style:  TextStyle(
-                color: cupertinoTabBarVIIIValue == 2 ? Colors.black : Colors.grey,
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 2 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
             Text(
               "TakeAway",
-              style:  TextStyle(
-                color: cupertinoTabBarVIIIValue == 3 ? Colors.black : Colors.grey,
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 3 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
             Text(
               "Condiments",
-              style:  TextStyle(
-                color: cupertinoTabBarVIIIValue == 4 ? Colors.black : Colors.grey,
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 4 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
             Text(
               "Specials",
-              style:  TextStyle(
-                color: cupertinoTabBarVIIIValue == 5 ? Colors.black : Colors.grey,
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 5 ? Colors.black : Colors.grey,
               ),
               textAlign: TextAlign.center,
             ),
           ],
           cupertinoTabBarVIIIValueGetter,
-              (int index) {
+          (int index) {
             setState(() {
               cupertinoTabBarVIIIValue = index;
             });
@@ -95,9 +105,7 @@ class _CategorySelector_2State extends State<CategorySelector_2> {
           fittedWhenScrollable: true,
           animateWhenScrollable: true,
         ),
-
-    )
+      )
     ]);
   }
 }
-

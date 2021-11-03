@@ -7,7 +7,6 @@ import 'package:square_one_mobile_app/screens/complete_profile/complete_profile_
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-
 class SignUpForm extends StatefulWidget {
   @override
   _SignUpFormState createState() => _SignUpFormState();

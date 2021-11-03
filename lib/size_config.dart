@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SizeConfig {
   static late MediaQueryData _mediaQueryData;
-  static  late double screenWidth;
+  static late double screenWidth;
   static late double screenHeight;
   static double? defaultSize;
   static Orientation? orientation;
@@ -16,7 +16,7 @@ class SizeConfig {
 }
 
 // Get the proportionate height as per screen size
-double  getProportionateScreenHeight(double inputHeight) {
+double getProportionateScreenHeight(double inputHeight) {
   double screenHeight = SizeConfig.screenHeight;
   // 812 is the layout height that designer use
   return (inputHeight / 812.0) * screenHeight;

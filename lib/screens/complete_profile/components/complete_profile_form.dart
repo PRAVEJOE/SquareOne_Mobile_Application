@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:square_one_mobile_app/components/custom_surfix_icon.dart';
 import 'package:square_one_mobile_app/components/default_button.dart';
 import 'package:square_one_mobile_app/components/form_error.dart';
-import 'package:square_one_mobile_app/screens/otp/otp_screen.dart';
+import 'package:square_one_mobile_app/screens/profile/profile_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -46,14 +46,14 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPhoneNumberFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
-          buildAddressFormField(),
+          buildPhoneNumberFormFields(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
-                Navigator.pushNamed(context, OtpScreen.routeName);
+                Navigator.pushNamed(context, ProfileScreen.routeName);
               }
             },
           ),
@@ -62,30 +62,30 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
     );
   }
 
-  TextFormField buildAddressFormField() {
+  TextFormField buildPhoneNumberFormFields() {
     return TextFormField(
-      onSaved: (newValue) => address = newValue,
+      keyboardType: TextInputType.phone,
+      onSaved: (newValue) => phoneNumber = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kAddressNullError);
+          removeError(error: kPhoneNumberNullError);
         }
         return null;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: kAddressNullError);
+          addError(error: kPhoneNumberNullError);
           return "";
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your phone address",
+        labelText: "Phone Number",
+        hintText: "Enter your phone number",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon:
-            CustomSurffixIcon(svgIcon: "assets/icons/Location point.svg"),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Phone.svg"),
       ),
     );
   }
@@ -108,7 +108,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Phone Number",
+        labelText: "Alternative Phone Number",
         hintText: "Enter your phone number",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly

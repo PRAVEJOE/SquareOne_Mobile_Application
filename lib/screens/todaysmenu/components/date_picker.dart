@@ -1,8 +1,7 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:square_one_mobile_app/screens/home/components/section_title.dart';
-import 'section_title.dart';
+
 import '../../../size_config.dart';
 
 class Date_Picker extends StatelessWidget {
@@ -11,21 +10,25 @@ class Date_Picker extends StatelessWidget {
     DatePickerController _controller = DatePickerController();
 
     DateTime _selectedValue = DateTime.now();
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
-        padding:
-        EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-        child: Text(
-            "Select a Date",textAlign: TextAlign.left,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: Text(
+            "Select a Date",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
             ),
-        )
-      ),
+          )),
       Container(
         width: double.infinity,
-        margin: EdgeInsets.fromLTRB(getProportionateScreenWidth(20),getProportionateScreenWidth(4),getProportionateScreenWidth(20),getProportionateScreenWidth(20)),
+        margin: EdgeInsets.fromLTRB(
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(20)),
         padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(5),
           vertical: getProportionateScreenWidth(5),

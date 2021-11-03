@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 import '../../../size_config.dart';
 
 class Categories extends StatelessWidget {
@@ -29,6 +30,7 @@ class Categories extends StatelessWidget {
     );
   }
 }
+
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
     Key? key,
@@ -59,10 +61,13 @@ class CategoryCard extends StatelessWidget {
               child: SvgPicture.asset(icon!),
             ),
             SizedBox(height: 5),
-            Text(text!, textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 13,
-            ),)
+            Text(
+              text!,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+              ),
+            )
           ],
         ),
       ),

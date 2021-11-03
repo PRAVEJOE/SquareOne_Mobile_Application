@@ -1,5 +1,6 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
+
 import '../../../size_config.dart';
 
 class Slot_Chooser extends StatelessWidget {
@@ -13,14 +14,16 @@ class Slot_Chooser extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-            padding:
-            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(20)),
             child: Text(
-              "Select a Pick up Slot",textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold,
+              "Select a Pick up Slot",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               ),
-            )
-        ),
+            )),
         CustomRadioButton(
           elevation: 0,
           selectedBorderColor: Colors.black,
@@ -46,9 +49,9 @@ class Slot_Chooser extends StatelessWidget {
             "12:00 PM",
             "02:00 PM",
           ],
-            radioButtonValue: (value) {
+          radioButtonValue: (value) {
             print(value);
-            },
+          },
           horizontal: false,
           width: 120,
           // hight: 50,

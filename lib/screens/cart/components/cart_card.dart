@@ -14,47 +14,70 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 88,
-          child: AspectRatio(
-            aspectRatio: 0.88,
-            child: Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
-              decoration: BoxDecoration(
-                color: Color(0xFFF5F6F9),
-                borderRadius: BorderRadius.circular(15),
+    return Container(
+      padding: EdgeInsets.all(getProportionateScreenWidth(2)),
+      decoration: BoxDecoration(
+        // color: kSecondaryColor.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 88,
+            child: AspectRatio(
+              aspectRatio: 0.88,
+              child: Container(
+                padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                decoration: BoxDecoration(
+                  color: Color(0xFFF5F6F9),
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Image.asset(cart.product.images[0]),
               ),
-              child: Image.asset(cart.product.images[0]),
             ),
           ),
-        ),
-        SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              cart.product.title,
-              style: TextStyle(color: Colors.black, fontSize: 16),
-              maxLines: 2,
-            ),
-            SizedBox(height: 10),
-            Text.rich(
-              TextSpan(
-                text: "\₹ ${cart.product.price}",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600, color: kPrimaryColor),
-                children: [
-                  TextSpan(
-                      text: " x${cart.numOfItem}",
-                      style: Theme.of(context).textTheme.bodyText1),
-                ],
+          SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                cart.product.title,
+                style: TextStyle(color: Colors.black, fontSize: 16),
+                maxLines: 2,
               ),
-            )
-          ],
-        )
-      ],
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  text: "\₹ ${cart.product.price}",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: kPrimaryColor),
+                  children: [
+                    TextSpan(
+                        text: " x${cart.numOfItem}",
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Text.rich(
+                TextSpan(
+                  text: "Date :",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600, color: kPrimaryColor),
+                  children: [
+                    TextSpan(
+                        text: "20-10-2021,",
+                        style: Theme.of(context).textTheme.bodyText1),
+                    TextSpan(
+                        text: " 02:00 PM",
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }

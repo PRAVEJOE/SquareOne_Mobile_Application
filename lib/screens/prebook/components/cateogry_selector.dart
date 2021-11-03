@@ -14,88 +14,100 @@ class CategorySelector extends StatefulWidget {
 
 class _CategorySelectorState extends State<CategorySelector> {
   int cupertinoTabBarVIIIValue = 0;
+
   int cupertinoTabBarVIIIValueGetter() => cupertinoTabBarVIIIValue;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-    children:[Padding(
-    padding:
-    EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-    child: SectionTitle(title: "Categories", press: () {}),
-    ),
-    SizedBox(height: getProportionateScreenWidth(10)),
+    return Column(children: [
+      Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        child: SectionTitle(title: "Categories", press: () {}),
+      ),
+      SizedBox(height: getProportionateScreenWidth(10)),
       Container(
         width: double.infinity,
-        margin: EdgeInsets.fromLTRB(getProportionateScreenWidth(20),getProportionateScreenWidth(4),getProportionateScreenWidth(20),getProportionateScreenWidth(20)),
+        margin: EdgeInsets.fromLTRB(
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(20)),
         padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(1),
-       vertical: getProportionateScreenWidth(2),
-       ),
-       decoration: BoxDecoration(
-       color: Color(0xFFF1F1F5),
-       borderRadius: BorderRadius.circular(15),
-       ),
-        child:CupertinoTabBar.CupertinoTabBar(
+          horizontal: getProportionateScreenWidth(1),
+          vertical: getProportionateScreenWidth(2),
+        ),
+        decoration: BoxDecoration(
+          color: Color(0xFFF1F1F5),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: CupertinoTabBar.CupertinoTabBar(
           const Color(0xFFF1F1F5),
-           const Color(0xff000000),
-      [
-        Text(
-          "All",
-          style: TextStyle(
-            color: cupertinoTabBarVIIIValue == 0 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-         Text(
-          "Cake",
-          style: TextStyle(
-            color: cupertinoTabBarVIIIValue == 1 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-         Text(
-          "Snacks",
-          style:  TextStyle(
-            color: cupertinoTabBarVIIIValue == 2 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-         Text(
-          "TakeAway",
-          style:  TextStyle(
-            color: cupertinoTabBarVIIIValue == 3 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-         Text(
-          "Condiments",
-          style:  TextStyle(
-            color: cupertinoTabBarVIIIValue == 4 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-         Text(
-          "Specials",
-          style:  TextStyle(
-            color: cupertinoTabBarVIIIValue == 5 ? Colors.white : Colors.black,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ],
-      cupertinoTabBarVIIIValueGetter,
-      (int index) {
-        setState(() {
-          cupertinoTabBarVIIIValue = index;
-        });
-      },
+          const Color(0xff000000),
+          [
+            Text(
+              "All",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 0 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Cake",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 1 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Snacks",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 2 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "TakeAway",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 3 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Condiments",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 4 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Specials",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 5 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+          cupertinoTabBarVIIIValueGetter,
+          (int index) {
+            setState(() {
+              cupertinoTabBarVIIIValue = index;
+              if (index == 1) {}
+            });
+          },
           useShadow: false,
-      useSeparators: false,
-      allowScrollable: true,
-      fittedWhenScrollable: true,
-      animateWhenScrollable: true,
-    ),
-    ),
+          useSeparators: false,
+          allowScrollable: true,
+          fittedWhenScrollable: true,
+          animateWhenScrollable: true,
+        ),
+      ),
     ]);
   }
 }

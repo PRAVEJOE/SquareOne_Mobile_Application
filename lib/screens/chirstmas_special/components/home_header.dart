@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:square_one_mobile_app/screens/cart/cart_screen.dart';
 
 import '../../../size_config.dart';
 import 'icon_btn_with_counter.dart';
-import 'search_field.dart';
 
 class HomeHeader extends StatelessWidget {
   const HomeHeader({
@@ -18,15 +16,10 @@ class HomeHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SearchField(),
+          Text("Order 1"),
+          Text("FRI,29 OCT 12:00 PM"),
           IconBtnWithCounter(
-            svgSrc: "assets/icons/Cart Icon.svg",
-            numOfitem: 3,
-            press: () => Navigator.pushNamed(context, CartScreen.routeName),
-          ),
-          IconBtnWithCounter(
-            svgSrc: "assets/icons/Bell.svg",
-            numOfitem: 2,
+            svgSrc: "assets/icons/delete.svg",
             press: () {},
           ),
         ],
