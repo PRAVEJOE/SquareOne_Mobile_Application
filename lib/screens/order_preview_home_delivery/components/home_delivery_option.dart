@@ -40,7 +40,7 @@ class _HomeDeliveryOptionState extends State<HomeDeliveryOption> {
     return Container(
       padding: EdgeInsets.all(getProportionateScreenWidth(10)),
       decoration: BoxDecoration(
-          color: Color(0xFFF5F6F9),
+         // color: Color(0xFFF5F6F9),
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Colors.grey)),
       child: Column(children: [

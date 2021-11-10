@@ -64,7 +64,7 @@ class _BodyState extends State<Body> {
                   width: 500,
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   decoration: BoxDecoration(
-                      color: Color(0xFFF5F6F9),
+                      //color: Color(0xFFF5F6F9),
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.grey)),
                   child: Column(
@@ -77,10 +77,9 @@ class _BodyState extends State<Body> {
                       ),
                       Back(
                         text: "More Options",
-                        icon: "assets/icons/delivery.svg",
+                        icon: "assets/icons/arrow-back-ios.svg",
                         press: () => {
-                          Navigator.pushNamed(
-                              context, Delivery_Options.routeName)
+                        Navigator.pop(context)
                         },
                       ),
                     ],
@@ -89,7 +88,7 @@ class _BodyState extends State<Body> {
               Container(
                 padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
+                   // color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey)),
                 child: Column(children: [
@@ -99,7 +98,7 @@ class _BodyState extends State<Body> {
                   SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                        color: Color(0xFFF5F6F9),
+                       // color: Color(0xFFF5F6F9),
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: Colors.grey)),
                     child: CheckboxListTile(
@@ -124,7 +123,7 @@ class _BodyState extends State<Body> {
               Container(
                 padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
+                    //color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey)),
                 child: Column(children: [
@@ -135,7 +134,7 @@ class _BodyState extends State<Body> {
                   SizedBox(height: 10),
                   Container(
                     decoration: BoxDecoration(
-                        color: Color(0xFFF5F6F9),
+                      //  color: Color(0xFFF5F6F9),
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: Colors.grey)),
                     child: CheckboxListTile(

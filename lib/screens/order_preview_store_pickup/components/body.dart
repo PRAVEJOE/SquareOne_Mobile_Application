@@ -20,7 +20,7 @@ class Body extends StatelessWidget {
                 width: 500,
                 padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
+                   // color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey)),
                 child: Column(
@@ -33,9 +33,9 @@ class Body extends StatelessWidget {
                     ),
                     Back(
                       text: "More Options",
-                      icon: "assets/icons/delivery.svg",
+                      icon: "assets/icons/arrow-back-ios.svg",
                       press: () => {
-                        Navigator.pushNamed(context, Delivery_Options.routeName)
+                      Navigator.pop(context)
                       },
                     ),
                   ],
@@ -44,7 +44,7 @@ class Body extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(10)),
               decoration: BoxDecoration(
-                  color: Color(0xFFF5F6F9),
+                //  color: Color(0xFFF5F6F9),
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.grey)),
               child: Column(children: [
@@ -58,7 +58,7 @@ class Body extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(getProportionateScreenWidth(10)),
               decoration: BoxDecoration(
-                  color: Color(0xFFF5F6F9),
+              //    color: Color(0xFFF5F6F9),
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Colors.grey)),
               child: Column(children: [

@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
                   width: 500,
                   padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                   decoration: BoxDecoration(
-                      color: Color(0xFFF5F6F9),
+                     // color: Color(0xFFF5F6F9),
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.grey)),
                   child: Text(
@@ -40,7 +40,7 @@ class _BodyState extends State<Body> {
               Container(
                 padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
+                   // color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey)),
                 child: Column(children: [
@@ -55,7 +55,7 @@ class _BodyState extends State<Body> {
               Container(
                 padding: EdgeInsets.all(getProportionateScreenWidth(10)),
                 decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
+                   // color: Color(0xFFF5F6F9),
                     borderRadius: BorderRadius.circular(15),
                     border: Border.all(color: Colors.grey)),
                 child: Column(children: [

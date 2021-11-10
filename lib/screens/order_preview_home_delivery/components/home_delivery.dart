@@ -29,9 +29,9 @@ class _HomeDeliveryState extends State<HomeDelivery> {
       Container(
         child:  Back(
           text: "More Options",
-          icon: "assets/icons/delivery.svg",
+          icon: "assets/icons/arrow-back-ios.svg",
           press: () => {
-            Navigator.pushNamed(context, Delivery_Options.routeName)
+          Navigator.pop(context)
           },
         ),
     ),

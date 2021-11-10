@@ -17,14 +17,14 @@ class Back extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       child: TextButton(
         style: TextButton.styleFrom(
           primary: kPrimaryColor,
           padding: EdgeInsets.all(2),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          backgroundColor: Color(0xFFF5F6F9),
+         // backgroundColor: Color(0xFFF5F6F9),
         ),
         onPressed: press,
         child: Row(
@@ -36,7 +36,6 @@ class Back extends StatelessWidget {
             ),
             SizedBox(width: 20),
             Expanded(child: Text(text)),
-            Icon(Icons.arrow_back_ios),
           ],
         ),
       ),
