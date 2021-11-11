@@ -1,88 +1,134 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:square_one_mobile_app/components/rounded_icon_btn_style_2.dart';
 import 'package:square_one_mobile_app/model/product.dart';
+import 'package:square_one_mobile_app/models/Product.dart';
+import 'package:square_one_mobile_app/screens/details/details_screen.dart';
 
+import '../constants.dart';
+import '../size_config.dart';
+import 'default_button-small.dart';
 
-class ProductTile extends StatelessWidget {
+class ProductCardAPI extends StatefulWidget {
   final TreeItemItem treeItemItem;
-  const ProductTile(this.treeItemItem);
+  const ProductCardAPI(this.treeItemItem);
+  @override
+  _ProductCardAPIState createState() => _ProductCardAPIState();
+}
+
+class _ProductCardAPIState extends State<ProductCardAPI> {
+  int quantity = 0;
+
+  void add() {
+    setState(() {
+      quantity++;
+    });
+  }
+
+  void minus() {
+    setState(() {
+      if (quantity != 0) quantity--;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+    return Padding(
+      padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+      child: SizedBox(
+        width: getProportionateScreenWidth(140),
+          child: Container(
+            padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+            decoration: BoxDecoration(
+              color: kSecondaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 180,
-                  width: double.infinity,
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Image.network(
-                    treeItemItem.image,
-                    fit: BoxFit.cover,
+                AspectRatio(
+                  aspectRatio: 1.02,
+                  child: Container(
+                    padding: EdgeInsets.all(getProportionateScreenWidth(10)),
+                    decoration: BoxDecoration(
+                      color: kSecondaryColor.withOpacity(0.1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Hero(
+                      tag: widget.treeItemItem.productId.toString(),
+                      child: Image.asset(widget.treeItemItem.image[0]),
+                    ),
                   ),
                 ),
-                Positioned(
-                  right: 0,
-                  child: Obx(() => CircleAvatar(
-                    backgroundColor: Colors.white,
-                    // child: IconButton(
-                    //   icon: TreeItemItem.isFavorite.value
-                    //       ? Icon(Icons.favorite_rounded)
-                    //       : Icon(Icons.favorite_border),
-                    //   onPressed: () {
-                    //     product.isFavorite.toggle();
-                    //   },
-                    // ),
-                  )),
-                )
+                const SizedBox(height: 10),
+                Text(
+                  widget.treeItemItem.groupOrItemName,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "\₹${widget.treeItemItem.unitPrice}",
+                      style: TextStyle(
+                        fontSize: getProportionateScreenWidth(18),
+                        fontWeight: FontWeight.w600,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                    InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(getProportionateScreenWidth(8)),
+                        height: getProportionateScreenWidth(28),
+                        width: getProportionateScreenWidth(28),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Text("Qty ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14)),
+                    Spacer(),
+                    RoundedIconBtnStyle_2(
+                      icon: Icons.remove,
+                      showShadow: true,
+                      press: () {
+                        minus();
+                      },
+                    ),
+                    SizedBox(width: getProportionateScreenWidth(5)),
+                    Text("$quantity ",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15)),
+                    SizedBox(width: getProportionateScreenWidth(5)),
+                    RoundedIconBtnStyle_2(
+                        icon: Icons.add,
+                        showShadow: true,
+                        press: () {
+                          add();
+                        }),
+                  ],
+                ),
+                SizedBox(height: getProportionateScreenWidth(15)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    DefaultButtonSmall(
+                      text: "Add To Cart",
+                      press: () {},
+                    ),
+                  ],
+                ),
               ],
             ),
-            SizedBox(height: 8),
-            Text(
-              treeItemItem.groupOrItemName,
-              maxLines: 2,
-              style:
-              TextStyle(fontFamily: 'avenir', fontWeight: FontWeight.w800),
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 8),
-            //if (product.rating != null)
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "a",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  Icon(
-                    Icons.star,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 8),
-            Text('\₹${treeItemItem.unitPrice}',
-                style: TextStyle(fontSize: 32, fontFamily: 'avenir')),
-          ],
+          ),
         ),
-      ),
-    );
+      );
   }
 }
