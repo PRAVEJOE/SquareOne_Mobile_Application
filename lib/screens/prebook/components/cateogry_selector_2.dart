@@ -35,6 +35,9 @@ class _CategorySelector_2State extends State<CategorySelector_2>
       setState(() {
         _selectedIndex = _controller.index;
         print("api Index: " + _controller.index.toString());
+        final TreeController _controllers =
+        Get.put(TreeController());
+        _controllers.CategorySelected(_selectedIndex);
       });
       print("Selected Index: " + _controller.index.toString());
     });
