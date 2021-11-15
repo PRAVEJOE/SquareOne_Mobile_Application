@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:square_one_mobile_app/components/rounded_icon_btn_style_2.dart';
+import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/model/product.dart';
 import 'package:square_one_mobile_app/models/Product.dart';
 import 'package:square_one_mobile_app/screens/details/details_screen.dart';
@@ -10,7 +11,7 @@ import '../size_config.dart';
 import 'default_button-small.dart';
 
 class ProductCardAPI extends StatefulWidget {
-  final TreeItemItem treeItemItem;
+  final Datum treeItemItem;
   const ProductCardAPI(this.treeItemItem);
   @override
   _ProductCardAPIState createState() => _ProductCardAPIState();
@@ -54,15 +55,15 @@ class _ProductCardAPIState extends State<ProductCardAPI> {
                       color: kSecondaryColor.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Hero(
-                      tag: widget.treeItemItem.productId.toString(),
-                      child: Image.asset(widget.treeItemItem.image[0]),
-                    ),
+                    // child: Hero(
+                    //   tag: widget.treeItemItem.itemId.toString(),
+                    //   child: Image.asset(widget.treeItemItem.i[0]),
+                    // ),
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  widget.treeItemItem.groupOrItemName,
+                  widget.treeItemItem.displayName,
                   style: TextStyle(color: Colors.black),
                   maxLines: 2,
                 ),

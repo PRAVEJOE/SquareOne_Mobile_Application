@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:square_one_mobile_app/screens/prebook/components/cateogry_selector_2.dart';
+import 'package:square_one_mobile_app/screens/prebook/prebook_screen.dart';
 
 import '../../../size_config.dart';
+class Categories extends StatefulWidget {
+  const Categories({Key? key}) : super(key: key);
 
-class Categories extends StatelessWidget {
+  @override
+  _CategoriesState createState() => _CategoriesState();
+}
+
+class _CategoriesState extends State<Categories> {
+  var stringtry;
+
   @override
   Widget build(BuildContext context) {
+
+
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/birthday-cake.svg", "text": "Cakes"},
-      {"icon": "assets/icons/nachos.svg", "text": "Snacks"},
-      {"icon": "assets/icons/take-away.svg", "text": "Take Away"},
+      {"icon": "assets/icons/birthday-cake.svg", "text": "Cakes", "id": "1"},
+      {"icon": "assets/icons/nachos.svg", "text": "Snacks", "id": "2"},
+      {"icon": "assets/icons/take-away.svg", "text": "Take Away", "id": 3},
       {"icon": "assets/icons/food.svg", "text": "Packed Items"},
       {"icon": "assets/icons/Discover.svg", "text": "More"},
     ];
@@ -20,15 +33,32 @@ class Categories extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           categories.length,
-          (index) => CategoryCard(
+              (index) => CategoryCard(
             icon: categories[index]["icon"],
             text: categories[index]["text"],
-            press: () {},
+            press: () {
+
+              Navigator.pushNamed(context, Prebook.routeName,arguments: {'SelectedIndex': index+1});
+
+
+            },
           ),
         ),
       ),
     );
   }
+
+  void passIdToBodyPrebook(BuildContext context) async {
+
+
+    var result = await Navigator.pushNamed(context, '/prebook');
+    setState(() {
+      result= stringtry;
+      print("stringgggtry"+ stringtry);
+    });
+
+  }
+
 }
 
 class CategoryCard extends StatelessWidget {

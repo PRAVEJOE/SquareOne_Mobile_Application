@@ -1,6 +1,9 @@
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 
 import '../../../size_config.dart';
 
@@ -42,7 +45,7 @@ class Date_Picker extends StatelessWidget {
           children: <Widget>[
             Container(
               child: DatePicker(
-                DateTime.now(),
+                DateTime .now(),
                 width: 60,
                 height: 100,
                 daysCount: 10,
@@ -58,7 +61,19 @@ class Date_Picker extends StatelessWidget {
                   DateTime.now().add(Duration(days: 4))
                 ],
                 onDateChange: (date) {
+                  print(_selectedValue);
                   // New date selected
+                  print(date);
+                  _selectedValue = date;
+                  print(_selectedValue);
+                  final DateTime now = date;
+                  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+                  final String formatted = formatter.format(now);
+                  print(date);
+                  final TreeController _controllers =
+                  Get.put(TreeController());
+                  _controllers.listprebookItemDate(formatted);
+
                   setState(() {
                     _selectedValue = date;
                   });

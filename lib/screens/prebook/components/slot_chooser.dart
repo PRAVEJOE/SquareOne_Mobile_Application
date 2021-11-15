@@ -1,5 +1,7 @@
 import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 
 import '../../../size_config.dart';
 
@@ -10,6 +12,7 @@ class Slot_Chooser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -28,6 +31,7 @@ class Slot_Chooser extends StatelessWidget {
           elevation: 0,
           selectedBorderColor: Colors.black,
           unSelectedBorderColor: Colors.black12,
+          defaultSelected: "10:00 AM",
           buttonTextStyle: ButtonTextStyle(
             selectedColor: Colors.white,
             unSelectedColor: Colors.black,
@@ -49,8 +53,14 @@ class Slot_Chooser extends StatelessWidget {
             "12:00 PM",
             "02:00 PM",
           ],
+
+
+
           radioButtonValue: (value) {
             print(value);
+            final TreeController _controllers =
+            Get.put(TreeController());
+            _controllers.listprebookItemTime(value.toString());
           },
           horizontal: false,
           width: 120,

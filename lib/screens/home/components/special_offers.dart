@@ -33,6 +33,7 @@ class SpecialOffers extends StatelessWidget {
                     "Pre-book from our entire range of homemade treats of the week, and satisfy your cravings for the week!",
                 press: () {
                   Navigator.pushNamed(context, Prebook.routeName);
+
                 },
               ),
               SpecialOfferCard(

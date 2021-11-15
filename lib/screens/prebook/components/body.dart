@@ -8,6 +8,9 @@ import 'home_header.dart';
 import 'prebook_product.dart';
 
 class Body extends StatelessWidget {
+  late int selectedIndex=0;
+  Body( this.selectedIndex, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +35,7 @@ class Body extends StatelessWidget {
             Date_Picker(),
             Slot_Chooser(),
             SizedBox(height: getProportionateScreenHeight(20.0)),
-            CategorySelector_2(),
+            CategorySelector_2(selectedIndex),
            // PreBookProducts(),
             SizedBox(height: getProportionateScreenWidth(30.0)),
           ],
