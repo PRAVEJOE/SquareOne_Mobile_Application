@@ -75,9 +75,7 @@ class XmasProductCard extends StatelessWidget {
                         height: getProportionateScreenWidth(28),
                         width: getProportionateScreenWidth(28),
                         decoration: BoxDecoration(
-                          color: product.isFavourite
-                              ? kPrimaryColor.withOpacity(0.15)
-                              : kSecondaryColor.withOpacity(0.1),
+                          color: product.isFavourite ? kPrimaryColor.withOpacity(0.15) : kSecondaryColor.withOpacity(0.1),
                           shape: BoxShape.circle,
                         ),
                         child: SvgPicture.asset(

@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
             Slot_Chooser(),
             SizedBox(height: getProportionateScreenHeight(20.0)),
             CategorySelector_2(),
-            PreBookProducts(),
+           // PreBookProducts(),
             SizedBox(height: getProportionateScreenWidth(30.0)),
           ],
         ),
