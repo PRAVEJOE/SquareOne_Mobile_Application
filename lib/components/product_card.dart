@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:square_one_mobile_app/models/Product.dart';
 import 'package:square_one_mobile_app/screens/details/details_screen.dart';
-
 import '../constants.dart';
 import '../size_config.dart';
 
@@ -20,7 +19,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+      padding: EdgeInsets.fromLTRB(20, 4, 20, 4),
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
@@ -85,7 +84,8 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+
             ],
           ),
         ),

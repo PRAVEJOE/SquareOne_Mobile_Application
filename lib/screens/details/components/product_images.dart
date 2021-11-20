@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:square_one_mobile_app/models/Product.dart';
 
 import '../../../constants.dart';
@@ -18,6 +19,8 @@ class ProductImages extends StatefulWidget {
 
 class _ProductImagesState extends State<ProductImages> {
   int selectedImage = 0;
+  int Value = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,7 +31,54 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              child: ImageSlideshow(
+                width: double.infinity,
+                height: 200,
+                initialPage: 0,
+                indicatorColor: Colors.white24,
+                indicatorBackgroundColor: Colors.white24,
+                onPageChanged: (value) {
+                  setState(() {
+                    selectedImage = value;
+                    debugPrint('Page changed: $Value');
+                    if (value == 0) {
+                      selectedImage = 0;
+                    }
+                    if (value == 1) {
+                      selectedImage = 1;
+                    }
+                    if (value == 2) {
+                      selectedImage = 2;
+                    }
+                    debugPrint('Page changed: $selectedImage');
+                  });
+                },
+                autoPlayInterval: 0,
+                isLoop: true,
+                children: [
+                  selectedImage == 0
+                      ? Image.asset(
+                          widget.product.images[0],
+                        )
+                      : Image.asset(
+                          widget.product.images[selectedImage],
+                        ),
+                  selectedImage == 1
+                      ? Image.asset(
+                          widget.product.images[1],
+                        )
+                      : Image.asset(
+                          widget.product.images[selectedImage],
+                        ),
+                  selectedImage == 2
+                      ? Image.asset(
+                          widget.product.images[2],
+                        )
+                      : Image.asset(
+                          widget.product.images[selectedImage],
+                        ),
+                ],
+              ),
             ),
           ),
         ),

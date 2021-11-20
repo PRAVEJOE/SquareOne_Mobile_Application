@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:square_one_mobile_app/screens/prebook/components/slot_chooser.dart';
 
 import '../../../size_config.dart';
+import 'cateogry_selector_2.dart';
 import 'date_picker.dart';
-import 'prebook_product.dart';
 import 'home_header.dart';
-import 'cateogry_selector.dart';
+import 'prebook_product.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -13,12 +14,26 @@ class Body extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: getProportionateScreenHeight(20.0)),
+            SizedBox(height: getProportionateScreenWidth(20)),
             HomeHeader(),
+            SizedBox(height: getProportionateScreenHeight(20.0)),
+            Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(2)),
+                child: Text(
+                  "This Week's Menu",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
+            SizedBox(height: getProportionateScreenHeight(20.0)),
             Date_Picker(),
-            Category_Selector(),
-            SizedBox(height: getProportionateScreenWidth(30.0)),
-            PreBookProducts(),
+            Slot_Chooser(),
+            SizedBox(height: getProportionateScreenHeight(20.0)),
+            CategorySelector_2(),
+           // PreBookProducts(),
             SizedBox(height: getProportionateScreenWidth(30.0)),
           ],
         ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:square_one_mobile_app/screens/prebook/prebook_screen.dart';
+import 'package:square_one_mobile_app/screens/todaysmenu/todaysmenu_screen.dart';
 
 import '../../../size_config.dart';
-import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
   const SpecialOffers({
@@ -13,31 +13,36 @@ class SpecialOffers extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(
-            title: "Special for you",
-            press: () {},
-          ),
-        ),
-        SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: [SpecialOfferCard(
-              image: "assets/images/takeaway.jpg",
-              category: "This Week Menu",
-              numOfBrands: 78,
-              press: () {
-                Navigator.pushNamed(context, Prebook.routeName);
-              },
-            ),
+            children: [
+              SpecialOfferCard(
+                image: "assets/images/dailymenu.jpg",
+                category: "Today's Menu",
+                numOfBrands:
+                    "View all of today's products available at our shop and get them home delivered in two hours!",
+                press: () {
+                  Navigator.pushNamed(context, TodaysMenu.routeName);
+                },
+              ),
+              SpecialOfferCard(
+                image: "assets/images/takeaway.jpg",
+                category: "This Week Menu",
+                numOfBrands:
+                    "Pre-book from our entire range of homemade treats of the week, and satisfy your cravings for the week!",
+                press: () {
+                  Navigator.pushNamed(context, Prebook.routeName);
+                },
+              ),
               SpecialOfferCard(
                 image: "assets/images/condiments (1).jpg",
                 category: "Advanced Order",
-                numOfBrands: 18,
-                press: () {},
+                numOfBrands:
+                    "Throw a party,celebrate a special occasion, or none at all! Explore and order any time from our entire range of products, especially our specialty birthday cakes.",
+                press: () {
+                  // Navigator.pushNamed(context, Prebook.routeName);
+                },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
@@ -58,7 +63,7 @@ class SpecialOfferCard extends StatelessWidget {
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
+  final String numOfBrands;
   final GestureTapCallback press;
 
   @override
@@ -106,7 +111,13 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Products")
+                        TextSpan(
+                          text: "$numOfBrands",
+                          style: TextStyle(
+                            fontSize: getProportionateScreenWidth(9),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
                   ),

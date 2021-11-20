@@ -16,7 +16,8 @@ class ProfilePic extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           new Image.asset(
-              'assets/images/Profile Image.png',),
+            'assets/images/Profile Image.png',
+          ),
           Positioned(
             right: -16,
             bottom: 0,

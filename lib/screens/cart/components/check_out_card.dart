@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:square_one_mobile_app/components/default_button.dart';
+import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -78,7 +79,9 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-                    press: () {},
+                    press: () {
+                      Navigator.pushNamed(context, Delivery_Options.routeName);
+                    },
                   ),
                 ),
               ],

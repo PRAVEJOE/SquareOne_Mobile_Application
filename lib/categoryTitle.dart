@@ -4,6 +4,7 @@ import 'package:square_one_mobile_app/constants.dart';
 class CategoryTitle extends StatelessWidget {
   final String title;
   final bool active;
+
   const CategoryTitle({
     Key? key,
     this.active = false,
@@ -17,8 +18,8 @@ class CategoryTitle extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.button!.copyWith(
-          color: active ? kPrimaryColor : kTextColor.withOpacity(.4),
-        ),
+              color: active ? kPrimaryColor : kTextColor.withOpacity(.4),
+            ),
       ),
     );
   }

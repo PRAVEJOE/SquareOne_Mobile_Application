@@ -1,34 +1,113 @@
+import 'package:cupertino_tabbar/cupertino_tabbar.dart' as CupertinoTabBar;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:square_one_mobile_app/screens/prebook/components/section_title.dart';
 
-import '../../../categoryTitle.dart';
 import '../../../size_config.dart';
-import 'section_title.dart';
 
-class Category_Selector extends StatelessWidget {
+class CategorySelector extends StatefulWidget {
+  const CategorySelector({Key? key}) : super(key: key);
+
+  @override
+  _CategorySelectorState createState() => _CategorySelectorState();
+}
+
+class _CategorySelectorState extends State<CategorySelector> {
+  int cupertinoTabBarVIIIValue = 0;
+
+  int cupertinoTabBarVIIIValueGetter() => cupertinoTabBarVIIIValue;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding:
-              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: SectionTitle(title: "Categories", press: () {}),
+    return Column(children: [
+      Padding(
+        padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+        child: SectionTitle(title: "Categories", press: () {}),
+      ),
+      SizedBox(height: getProportionateScreenWidth(10)),
+      Container(
+        width: double.infinity,
+        margin: EdgeInsets.fromLTRB(
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(1),
+          vertical: getProportionateScreenWidth(2),
         ),
-        SizedBox(height: getProportionateScreenWidth(20)),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: <Widget>[
-              CategoryTitle(title: "All", active: true),
-              CategoryTitle(title: "Cakes"),
-              CategoryTitle(title: "Snacks"),
-              CategoryTitle(title: "TakeAway"),
-              CategoryTitle(title: "Condiments"),
-              CategoryTitle(title: "Specials")
-            ],
-          ),
+        decoration: BoxDecoration(
+          color: Color(0xFFF1F1F5),
+          borderRadius: BorderRadius.circular(15),
         ),
-      ],
-    );
+        child: CupertinoTabBar.CupertinoTabBar(
+          const Color(0xFFF1F1F5),
+          const Color(0xff000000),
+          [
+            Text(
+              "All",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 0 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Cake",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 1 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Snacks",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 2 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "TakeAway",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 3 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Condiments",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 4 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              "Specials",
+              style: TextStyle(
+                color:
+                    cupertinoTabBarVIIIValue == 5 ? Colors.white : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+          cupertinoTabBarVIIIValueGetter,
+          (int index) {
+            setState(() {
+              cupertinoTabBarVIIIValue = index;
+              if (index == 1) {}
+            });
+          },
+          useShadow: false,
+          useSeparators: false,
+          allowScrollable: true,
+          fittedWhenScrollable: true,
+          animateWhenScrollable: true,
+        ),
+      ),
+    ]);
   }
 }

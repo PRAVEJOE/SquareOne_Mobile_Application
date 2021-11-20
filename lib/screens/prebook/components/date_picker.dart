@@ -10,57 +10,65 @@ class Date_Picker extends StatelessWidget {
     DatePickerController _controller = DatePickerController();
 
     DateTime _selectedValue = DateTime.now();
-
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/birthday-cake.svg", "text": "Cakes"},
-      {"icon": "assets/icons/nachos.svg", "text": "Snacks"},
-      {"icon": "assets/icons/take-away.svg", "text": "Take Away"},
-      {"icon": "assets/icons/food.svg", "text": "Packed Items"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
-    ];
-    return Padding(
-        padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-        child: Container(
-          width: double.infinity,
-          margin: EdgeInsets.all(getProportionateScreenWidth(2)),
-          padding: EdgeInsets.symmetric(
-            horizontal: getProportionateScreenWidth(5),
-            vertical: getProportionateScreenWidth(5),
-          ),
-          decoration: BoxDecoration(
-            color: Color(0xFFF1F1F5),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                child: DatePicker(
-                  DateTime.now(),
-                  width: 60,
-                  height: 100,
-                  controller: _controller,
-                  initialSelectedDate: DateTime.now(),
-                  selectionColor: Colors.black,
-                  selectedTextColor: Colors.white,
-                  deactivatedColor: Colors.black12,
-                  dateTextStyle: TextStyle(color: Colors.black, fontSize: 24),
-                  inactiveDates: [
-                    DateTime.now().add(Duration(days: 1)),
-                    DateTime.now().add(Duration(days: 4)),
-                    DateTime.now().add(Duration(days: 5))
-                  ],
-                  onDateChange: (date) {
-                    // New date selected
-                    setState(() {
-                      _selectedValue = date;
-                    });
-                  },
-                ),
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: Text(
+            "Select a Date",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+            ),
+          )),
+      Container(
+        width: double.infinity,
+        margin: EdgeInsets.fromLTRB(
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(4),
+            getProportionateScreenWidth(20),
+            getProportionateScreenWidth(20)),
+        padding: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(5),
+          vertical: getProportionateScreenWidth(5),
+        ),
+        decoration: BoxDecoration(
+          color: Color(0xFFF1F1F5),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: DatePicker(
+                DateTime.now(),
+                width: 60,
+                height: 100,
+                daysCount: 10,
+                controller: _controller,
+                initialSelectedDate: DateTime.now(),
+                selectionColor: Colors.black,
+                selectedTextColor: Colors.white,
+                deactivatedColor: Colors.black12,
+                dateTextStyle: TextStyle(color: Colors.black, fontSize: 24),
+                inactiveDates: [
+                  DateTime.now().add(Duration(days: 1)),
+                  DateTime.now().add(Duration(days: 4)),
+                  DateTime.now().add(Duration(days: 4))
+                ],
+                onDateChange: (date) {
+                  // New date selected
+                  setState(() {
+                    _selectedValue = date;
+                  });
+                },
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      )
+    ]);
   }
 
   void setState(Null Function() param0) {}
