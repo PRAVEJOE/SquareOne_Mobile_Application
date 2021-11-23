@@ -10,8 +10,8 @@ import 'package:square_one_mobile_app/components/product_card_api.dart';
 import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 
 class CategorySelector_2 extends StatefulWidget {
-    CategorySelector_2(this.selectedIndex, {Key? key}) : super(key: key);
-    late final int selectedIndex;
+    CategorySelector_2(this.selectedIndex , {Key? key}) : super(key: key);
+    late int selectedIndex =0;
 
   @override
   _CategorySelector_2State createState() => _CategorySelector_2State();
@@ -33,9 +33,16 @@ class _CategorySelector_2State extends State<CategorySelector_2>
     Tab(text: 'Condiments'),
   ];
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+    // animationController.dispose() instead of your controller.dispose
+  }
+  @override
   void initState() {
-    super.initState();
 
+     super.initState();
     // Create TabController for getting the index of current tab
     //_selectedIndex
     _controller = TabController(length: list.length, vsync: this, initialIndex:widget.selectedIndex );
@@ -44,15 +51,8 @@ class _CategorySelector_2State extends State<CategorySelector_2>
         _selectedIndex = _controller.index;
         widget.selectedIndex=_selectedIndex;
         print("api Index: " + _controller.index.toString());
-
-        final TreeController _controllers = Get.put(TreeController());
-
-        _controllers.CategorySelected(_selectedIndex);
       });
 
-      final TreeController _controllers = Get.put(TreeController());
-      _controllers.CategorySelected(_selectedIndex);
-      print("Selected Index: " + _controller.index.toString());
     });
   }
 
@@ -61,10 +61,12 @@ class _CategorySelector_2State extends State<CategorySelector_2>
 
   void listprebookItemDate(String index) async {
     dateReturned = index;
+    initState();
   }
 
   void listprebookItemTime(String index) async {
     timeReturned = index;
+    initState();
   }
   void CategorySelected(int selectedCat) async{
      _preSelectedTab = selectedCat;
@@ -73,8 +75,8 @@ class _CategorySelector_2State extends State<CategorySelector_2>
 
   @override
   Widget build(BuildContext context) {
-    final TreeController _controllers = Get.put(TreeController());
-    _controllers.CategorySelected(widget.selectedIndex);
+      final TreeController _controllers = Get.put(TreeController());
+      _controllers.CategorySelected(widget.selectedIndex);
     return Container(
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
           Widget>[
@@ -90,9 +92,7 @@ class _CategorySelector_2State extends State<CategorySelector_2>
                       onTap: (index) {
                         // Should not used it as it only called when tab options are clicked,
                         // not when user swapped
-                        final TreeController _controllers =
-                            Get.put(TreeController());
-                        _controllers.CategorySelected(index);
+                        initState();
                       },
                       isScrollable: true,
                       controller: _controller,
@@ -107,13 +107,13 @@ class _CategorySelector_2State extends State<CategorySelector_2>
                               top: BorderSide(color: Colors.grey, width: 0.5))),
                       child: TabBarView(controller: _controller, children: [
 
-                           Obx(() {
-                            if (productController.isLoading.value)
-                              return  Center(child: SpinKitSpinningLines(
+                        Obx(() {
+                          if (productController.isLoading.value)
+                            return Center(child: SpinKitSpinningLines(
                               color: Colors.black,
                               size: 50.0,
                             ));
-                            else
+                          else if(productController.productList.length>0)
                             return StaggeredGridView.countBuilder(
                               crossAxisCount: 2,
                               itemCount: productController.productList.length,
@@ -125,67 +125,14 @@ class _CategorySelector_2State extends State<CategorySelector_2>
                               },
                               staggeredTileBuilder: (index) =>
                                   StaggeredTile.fit(1),
-                            );
-                          }),
-
-                        Obx(() {
-                          if (productController.isLoading.value)
-                            return Center(child: SpinKitSpinningLines(
-                            color: Colors.black,
-                            size: 50.0,
-                          ));
-                          else
-                          return StaggeredGridView.countBuilder(
-                            crossAxisCount: 2,
-                            itemCount: productController.productList.length,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            itemBuilder: (context, index) {
-                              return ProductCardAPI(
-                                  productController.productList[index]);
-                            },
-                            staggeredTileBuilder: (index) =>
-                                StaggeredTile.fit(1),
-                          );
-                        }),
-                        Obx(() {
-                          if (productController.isLoading.value)
-                            return Center(child: SpinKitSpinningLines(
-                              color: Colors.black,
-                              size: 50.0,
-                            ));
-                          else
-                          return StaggeredGridView.countBuilder(
-                            crossAxisCount: 2,
-                            itemCount: productController.productList.length,
-                            crossAxisSpacing: 16,
-                            mainAxisSpacing: 16,
-                            itemBuilder: (context, index) {
-                              return ProductCardAPI(
-                                  productController.productList[index]);
-                            },
-                            staggeredTileBuilder: (index) =>
-                                StaggeredTile.fit(1),
-                          );
-                        }),
-                        Obx(() {
-                          if (productController.isLoading.value)
-                            return Center(child: SpinKitSpinningLines(
-                              color: Colors.black,
-                              size: 50.0,
-                            ));
-                          else
-                            return StaggeredGridView.countBuilder(
-                              crossAxisCount: 2,
-                              itemCount: productController.productList.length,
-                              crossAxisSpacing: 16,
-                              mainAxisSpacing: 16,
-                              itemBuilder: (context, index) {
-                                return ProductCardAPI(
-                                    productController.productList[index]);
-                              },
-                              staggeredTileBuilder: (index) =>
-                                  StaggeredTile.fit(1),
+                            );else
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image(image: AssetImage('assets/images/no-item-found-here.png')),
+                              ],
                             );
                         }),
                         Obx(() {
@@ -194,7 +141,7 @@ class _CategorySelector_2State extends State<CategorySelector_2>
                               color: Colors.black,
                               size: 50.0,
                             ));
-                          else
+                          else if(productController.productList.length>0)
                             return StaggeredGridView.countBuilder(
                               crossAxisCount: 2,
                               itemCount: productController.productList.length,
@@ -206,6 +153,97 @@ class _CategorySelector_2State extends State<CategorySelector_2>
                               },
                               staggeredTileBuilder: (index) =>
                                   StaggeredTile.fit(1),
+                            );else
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image(image: AssetImage('assets/images/no-item-found-here.png')),
+                              ],
+                            );
+                        }),
+                        Obx(() {
+                          if (productController.isLoading.value)
+                            return Center(child: SpinKitSpinningLines(
+                              color: Colors.black,
+                              size: 50.0,
+                            ));
+                          else if(productController.productList.length>0)
+                            return StaggeredGridView.countBuilder(
+                              crossAxisCount: 2,
+                              itemCount: productController.productList.length,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              itemBuilder: (context, index) {
+                                return ProductCardAPI(
+                                    productController.productList[index]);
+                              },
+                              staggeredTileBuilder: (index) =>
+                                  StaggeredTile.fit(1),
+                            );else
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image(image: AssetImage('assets/images/no-item-found-here.png')),
+                              ],
+                            );                     }),
+                        Obx(() {
+                          if (productController.isLoading.value)
+                            return Center(child: SpinKitSpinningLines(
+                              color: Colors.black,
+                              size: 50.0,
+                            ));
+                          else if(productController.productList.length>0)
+                            return StaggeredGridView.countBuilder(
+                              crossAxisCount: 2,
+                              itemCount: productController.productList.length,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              itemBuilder: (context, index) {
+                                return ProductCardAPI(
+                                    productController.productList[index]);
+                              },
+                              staggeredTileBuilder: (index) =>
+                                  StaggeredTile.fit(1),
+                            );else
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image(image: AssetImage('assets/images/no-item-found-here.png')),
+                              ],
+                            );
+                        }),
+                        Obx(() {
+                          if (productController.isLoading.value)
+                            return Center(child: SpinKitSpinningLines(
+                              color: Colors.black,
+                              size: 50.0,
+                            ));
+                          else if(productController.productList.length>0)
+                            return StaggeredGridView.countBuilder(
+                              crossAxisCount: 2,
+                              itemCount: productController.productList.length,
+                              crossAxisSpacing: 16,
+                              mainAxisSpacing: 16,
+                              itemBuilder: (context, index) {
+                                return ProductCardAPI(
+                                    productController.productList[index]);
+                              },
+                              staggeredTileBuilder: (index) =>
+                                  StaggeredTile.fit(1),
+                            );else
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Image(image: AssetImage('assets/images/no-item-found-here.png')),
+                              ],
                             );
                         }),
                       ]))

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:square_one_mobile_app/components/checkConnection.dart';
 import 'package:square_one_mobile_app/screens/prebook/components/slot_chooser.dart';
 
 import '../../../size_config.dart';
@@ -32,6 +33,7 @@ class Body extends StatelessWidget {
                   ),
                 )),
             SizedBox(height: getProportionateScreenHeight(20.0)),
+            CheckConnection(),
             Date_Picker(),
             Slot_Chooser(),
             SizedBox(height: getProportionateScreenHeight(20.0)),

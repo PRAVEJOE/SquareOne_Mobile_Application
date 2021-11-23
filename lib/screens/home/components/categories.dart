@@ -37,10 +37,12 @@ class _CategoriesState extends State<Categories> {
             icon: categories[index]["icon"],
             text: categories[index]["text"],
             press: () {
-
-              Navigator.pushNamed(context, Prebook.routeName,arguments: {'SelectedIndex': index+1});
-
-
+              if(index ==4){
+                Navigator.pushNamed(context, Prebook.routeName,arguments: {'SelectedIndex': 0});
+              }else {
+                Navigator.pushNamed(context, Prebook.routeName,
+                    arguments: {'SelectedIndex': index + 1});
+              }
             },
           ),
         ),

@@ -37,6 +37,7 @@ class Datum {
     required this.unitPrice,
     required this.itemWtForHd,
     required this.hDitemWtUnit,
+    this.quantity=0,
     required this.maximumPossible,
   });
 
@@ -48,6 +49,7 @@ class Datum {
   String itemWtForHd;
   String hDitemWtUnit;
   String maximumPossible;
+  int quantity;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     itemId: json["itemID"],
@@ -58,6 +60,7 @@ class Datum {
     itemWtForHd: json["ItemWtForHD"],
     hDitemWtUnit: json["HDitemWtUnit"],
     maximumPossible: json["maximumPossible"],
+      quantity:json["quantity"] == null ? 0 : json["quantity"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,6 +72,7 @@ class Datum {
     "ItemWtForHD": itemWtForHd,
     "HDitemWtUnit": hDitemWtUnitValues.reverse[hDitemWtUnit],
     "maximumPossible": maximumPossible,
+    "quantity":quantity
   };
 }
 

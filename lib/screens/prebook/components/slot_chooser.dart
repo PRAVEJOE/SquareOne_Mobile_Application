@@ -12,7 +12,9 @@ class Slot_Chooser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    final TreeController _controllers =
+    Get.put(TreeController());
+    _controllers.listprebookItemTime("10:00 AM");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

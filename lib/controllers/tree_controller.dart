@@ -9,6 +9,7 @@ class TreeController extends GetxController {
   var isLoading = true.obs;
   var productList = <Datum>[].obs;
   var tabSelected = 0;
+  List<Datum> all = [];
   List<Datum> snacksList = []; //for sorting snacks
   List<Datum> cakesList = []; //for sorting cakes
   List<Datum> takeAwayList = []; //for sorting take away
@@ -21,36 +22,22 @@ class TreeController extends GetxController {
   @override
   Future<void> onInit() async {
     getPrebookItems();
-    snacksList.clear();
-    cakesList.clear();
-    takeAwayList.clear();
-    condimentList.clear();
     super.onInit();
   }
 
   void CategorySelected(int index) async {
     tabSelected = index;
-    getPrebookItems();
+      tabSelect();
     super.onInit();
   }
 
   void listprebookItemDate(String index) async {
     prebookDate = index;
-    snacksList.clear();
-    cakesList.clear();
-    takeAwayList.clear();
-    condimentList.clear();
-
     getPrebookItems();
   }
 
   void listprebookItemTime(String time) async {
     prebookTime = time;
-    snacksList.clear();
-    cakesList.clear();
-    takeAwayList.clear();
-    condimentList.clear();
-
     getPrebookItems();
   }
 
@@ -64,36 +51,49 @@ class TreeController extends GetxController {
 
       print(result1);
       print(tabSelected);
+      all.clear();
+      snacksList.clear();
+      cakesList.clear();
+      takeAwayList.clear();
+      condimentList.clear();
       for (var i = 0; i < result1.data.length; i++) {
         if (result1.data[i].onlineCategoryName == "SNACKS") {
           snacksList.add(result1.data[i]);
+          all.add(result1.data[i]);
         } else if (result1.data[i].onlineCategoryName == "CAKES") {
           cakesList.add(result1.data[i]);
+          all.add(result1.data[i]);
         } else if (result1.data[i].onlineCategoryName == "TAKE AWAYS") {
           takeAwayList.add(result1.data[i]);
+          all.add(result1.data[i]);
         } else if (result1.data[i].onlineCategoryName == "CONDIMENTS") {
           condimentList.add(result1.data[i]);
+          all.add(result1.data[i]);
         }
       }
 
-      if (tabSelected == 0) {
-        productList.value = result1.data;
-
-      } else if (tabSelected == 1) {
-        productList.value = cakesList;
-
-      } else if (tabSelected == 2) {
-        productList.value = snacksList;
-
-      } else if (tabSelected == 3) {
-        productList.value = takeAwayList;
-
-      } else if (tabSelected == 4) {
-        productList.value = condimentList;
-
-      }
+      productList.value = result1.data;
+      tabSelect();
     } finally {
       isLoading(false);
+    }
+  }
+  void tabSelect(){
+    if (tabSelected == 0) {
+      productList.value =all;
+
+    } else if (tabSelected == 1) {
+      productList.value = cakesList;
+    } else if (tabSelected == 2) {
+      productList.value = snacksList;
+
+    } else if (tabSelected == 3) {
+
+      productList.value = takeAwayList;
+
+    } else if (tabSelected == 4) {
+      productList.value = condimentList;
+
     }
   }
 }

@@ -1,18 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:square_one_mobile_app/components/default_button.dart';
+import 'package:square_one_mobile_app/controllers/item_Controller.dart';
+import 'package:square_one_mobile_app/controllers/tree_controller.dart';
+import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
+class CheckoutCard extends StatefulWidget {
+  // CheckoutCard(double totalPrice,  {Key? key}) : super(key: key);
+
+
   const CheckoutCard({
     Key? key,
+    this.totalPrice = 0.0,
   }) : super(key: key);
+  final double totalPrice;
+
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+
+}
+
+final ItemController itemController = Get.put(ItemController());
+
+class _CheckoutCardState extends State<CheckoutCard> {
+
+  @override
+  void initState() {
+
+    double totalPriceOfCart = itemController.totalPrice();
+    print("ssssssssssssssssss");
+    print(widget.totalPrice);
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+print("sssssssssssskkkkkkkkkkkk");
+    print(widget.totalPrice);
+    double totalPriceOfCart = itemController.totalPrice();
+    //print("The number isdddddddddddd $widget.totalPrice");
+
     return Container(
       padding: EdgeInsets.symmetric(
         vertical: getProportionateScreenWidth(15),
@@ -64,12 +98,22 @@ class CheckoutCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 Text.rich(
                   TextSpan(
                     text: "Total:\n",
+
                     children: [
+
+
+
                       TextSpan(
-                        text: "₹ 1850.00",
+                        //text: "($totalPriceOfCart)",
+
+                      //Text ("${score}");
+                        text: "${widget.totalPrice}",
+
+
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
@@ -91,4 +135,6 @@ class CheckoutCard extends StatelessWidget {
       ),
     );
   }
+
+
 }

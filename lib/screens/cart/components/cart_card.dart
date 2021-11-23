@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:square_one_mobile_app/controllers/item_Controller.dart';
+import 'package:square_one_mobile_app/controllers/tree_controller.dart';
+import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/models/Cart.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CartCard extends StatelessWidget {
-  const CartCard({
-    Key? key,
-    required this.cart,
-  }) : super(key: key);
 
-  final Cart cart;
+class CartCard extends StatefulWidget {
+  final Datum cart;
+
+  const CartCard({Key? key,required this.cart,}) : super(key: key);
+  //final Cart cart;
+
+  @override
+  _CartCardState createState() => _CartCardState();
+}
+
+final ItemController itemController = Get.put(ItemController());
+class _CartCardState extends State<CartCard> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       padding: EdgeInsets.all(getProportionateScreenWidth(2)),
       decoration: BoxDecoration(
@@ -32,7 +44,7 @@ class CartCard extends StatelessWidget {
                   color: Color(0xFFF5F6F9),
                   borderRadius: BorderRadius.circular(15),
                 ),
-                child: Image.asset(cart.product.images[0]),
+                //child: Image.asset(treeItemItem.),
               ),
             ),
           ),
@@ -41,19 +53,19 @@ class CartCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                cart.product.title,
+                widget.cart.displayName,
                 style: TextStyle(color: Colors.black, fontSize: 16),
                 maxLines: 2,
               ),
               SizedBox(height: 10),
               Text.rich(
                 TextSpan(
-                  text: "\₹ ${cart.product.price}",
+                  text: "\₹ ${widget.cart.unitPrice}",
                   style: TextStyle(
                       fontWeight: FontWeight.w600, color: kPrimaryColor),
                   children: [
                     TextSpan(
-                        text: " x${cart.numOfItem}",
+                      text: " x${widget.cart.quantity}",
                         style: Theme.of(context).textTheme.bodyText1),
                   ],
                 ),

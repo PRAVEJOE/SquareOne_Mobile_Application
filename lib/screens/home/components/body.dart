@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:square_one_mobile_app/components/checkConnection.dart';
 
 import '../../../size_config.dart';
 import 'categories.dart';
@@ -18,6 +19,7 @@ class Body extends StatelessWidget {
             LogoHeader(),
             SizedBox(height: getProportionateScreenHeight(20.0)),
             HomeHeader(),
+            CheckConnection(),
             SizedBox(height: getProportionateScreenWidth(20.0)),
             //DiscountBanner(),
             SpecialOffers(),//This weeks menu
