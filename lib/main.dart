@@ -1,14 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:square_one_mobile_app/routes.dart';
 import 'package:square_one_mobile_app/screens/home/home_screen.dart';
 import 'package:square_one_mobile_app/theme.dart';
-
-void main() {
+import 'package:square_one_mobile_app/Services/Auth_Service.dart';
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  AuthClass authClass = AuthClass();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,3 +33,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

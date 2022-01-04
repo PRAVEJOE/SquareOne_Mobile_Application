@@ -8,7 +8,6 @@ import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 import '../../../size_config.dart';
 
 class Date_Picker extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     DatePickerController _controller = DatePickerController();
@@ -26,14 +25,16 @@ class Date_Picker extends StatelessWidget {
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
-          )),
+          )
+      ),
       Container(
         width: double.infinity,
         margin: EdgeInsets.fromLTRB(
             getProportionateScreenWidth(20),
             getProportionateScreenWidth(4),
             getProportionateScreenWidth(20),
-            getProportionateScreenWidth(20)),
+            getProportionateScreenWidth(20)
+        ),
         padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(5),
           vertical: getProportionateScreenWidth(5),
@@ -47,7 +48,7 @@ class Date_Picker extends StatelessWidget {
           children: <Widget>[
             Container(
               child: DatePicker(
-                DateTime .now(),
+                DateTime.now(),
                 width: 60,
                 height: 100,
                 daysCount: 6,
@@ -75,7 +76,6 @@ class Date_Picker extends StatelessWidget {
                   print(date);
                   final TreeController _controllers = Get.put(TreeController());
                   _controllers.listprebookItemDate(formatted);
-
                   setState(() {
                     _selectedValue = date;
                   });

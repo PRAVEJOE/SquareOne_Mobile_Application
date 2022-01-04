@@ -7,6 +7,7 @@ import 'package:square_one_mobile_app/controllers/item_Controller.dart';
 import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
+import 'package:square_one_mobile_app/screens/otp/otp_screen.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -124,7 +125,8 @@ print("sssssssssssskkkkkkkkkkkk");
                   child: DefaultButton(
                     text: "Check Out",
                     press: () {
-                      Navigator.pushNamed(context, Delivery_Options.routeName);
+                    //  Navigator.pushNamed(context, Delivery_Options.routeName);
+                      Navigator.pushNamed(context, OtpScreen.routeName);
                     },
                   ),
                 ),

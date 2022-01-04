@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "21584960965",
+    "project_id": "squareone-mobileapp",
+    "storage_bucket": "squareone-mobileapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21584960965:android:a18279f0f9d9f16554bfac",
+        "android_client_info": {
+          "package_name": "com.example.square_one_mobile_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "21584960965-o3h2b05oc6c95epkqnms9fahmdqbtoku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.square_one_mobile_app",
+            "certificate_hash": "ade0ebc72d32e327348f584dfec59bcd205fc9f3"
+          }
+        },
+        {
+          "client_id": "21584960965-uf684152cnj6pemabah679e22g0g1lm8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfBo-GY99kdeWRZjuN6PfUSkd-exQ0eGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "21584960965-uf684152cnj6pemabah679e22g0g1lm8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

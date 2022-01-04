@@ -10,6 +10,7 @@ class PrebookProductController extends GetxController {
 
   var isLoading = true.obs;
   var productList = <Datum>[].obs;
+  var dateslot =<Datum>[].obs;
   var ab=0;
 
   var prebookDate ="2021-11-09";
@@ -20,6 +21,7 @@ class PrebookProductController extends GetxController {
   @override
   Future<void> onInit() async {
     getPrebookItems();
+    getPrebookDateSot();
     super.onInit();
 
   }
@@ -44,6 +46,15 @@ class PrebookProductController extends GetxController {
     await RemoteServices.getPrebookItems(requestParamPrebook);
     print(result1);
     productList.value = result1.data;
+
+
+  }
+  Future<void> getPrebookDateSot() async {
+
+    final result1 =
+    await RemoteServices.getPrebookDateSlot();
+    print(result1);
+    dateslot.value = result1.data;
 
 
   }

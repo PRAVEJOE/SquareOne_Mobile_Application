@@ -8,6 +8,7 @@ import 'package:square_one_mobile_app/services/remote_services.dart';
 class TreeController extends GetxController {
   var isLoading = true.obs;
   var productList = <Datum>[].obs;
+  var dateslot =<Datum>[].obs;
   var tabSelected = 0;
   List<Datum> all = [];
   List<Datum> snacksList = []; //for sorting snacks
@@ -34,11 +35,22 @@ class TreeController extends GetxController {
   void listprebookItemDate(String index) async {
     prebookDate = index;
     getPrebookItems();
+    getPrebookDateSot();
   }
 
   void listprebookItemTime(String time) async {
     prebookTime = time;
     getPrebookItems();
+    getPrebookDateSot();
+  }
+  Future<void> getPrebookDateSot() async {
+
+    final result1 =
+    await RemoteServices.getPrebookDateSlot();
+    print(result1);
+    dateslot.value = result1.data;
+
+
   }
 
   Future<void> getPrebookItems() async {
@@ -48,7 +60,8 @@ class TreeController extends GetxController {
           RequestParamPrebook(date: prebookDate, time: prebookTime);
 
       final result1 = await RemoteServices.getPrebookItems(requestParamPrebook);
-
+      await RemoteServices.getPrebookDateSlot();
+      print(dateslot);
       print(result1);
       print(tabSelected);
       all.clear();

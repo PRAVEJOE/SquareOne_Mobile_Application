@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/model/RequestParamPrebook.dart';
+import 'package:square_one_mobile_app/model/prebookDateSlot.dart';
 import 'package:square_one_mobile_app/model/product.dart';
 class RemoteServices {
   static var client = http.Client();
-  static const API ="http://ec2-13-127-183-204.ap-south-1.compute.amazonaws.com/OrderwebAPI/api/";
+  static const API ="http://ec2-3-109-158-202.ap-south-1.compute.amazonaws.com/OrderwebAPI/api/";
 
   static Future fetchProducts() async {
     var response = await client.get(Uri.parse(
@@ -36,6 +37,23 @@ class RemoteServices {
       var jsonString = response.body;
       print(jsonString);
       return prebookProductFromJson(jsonString);
+      //print(responseBody);
+    } else {
+      throw Exception("Fail");
+    }
+  }
+  static Future getPrebookDateSlot() async {
+    Map<String, String> headers = {"content-type": "application/json"};
+
+
+    var response = await http.post(Uri.parse(API + 'getprebookDays'),
+        body: jsonEncode(""), headers: headers);
+    if (response.statusCode == 200) {
+      print("Success");
+      // String responseBody = utf8.decoder.convert(response.bodyBytes);
+      var jsonString = response.body;
+      print(jsonString);
+      return welcomeFromJson(jsonString);
       //print(responseBody);
     } else {
       throw Exception("Fail");
