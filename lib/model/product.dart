@@ -39,10 +39,10 @@ class Data {
     required this.timeSlots,
     required this.branches,
     required this.deliveryPartners,
-    required this.seasonsgroup,
+    required this.seasonsGroup,
     required this.boxTypeList,
-    required this.nonstockableitemList,
-    required this.homedeliverymanagerList,
+    required this.nonstockableItemList,
+    required this.homeDeliveryManagerList,
   });
 
   List<TreeItemElement> treeItems;
@@ -55,10 +55,10 @@ class Data {
   List<String> timeSlots;
   List<Branch> branches;
   List<DeliveryPartner> deliveryPartners;
-  List<Seasonsgroup> seasonsgroup;
+  List<Seasonsgroup> seasonsGroup;
   List<BoxTypeList> boxTypeList;
-  List<NonstockableitemList> nonstockableitemList;
-  List<dynamic> homedeliverymanagerList;
+  List<NonstockableitemList> nonstockableItemList;
+  List<dynamic> homeDeliveryManagerList;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         treeItems: List<TreeItemElement>.from(
@@ -80,37 +80,33 @@ class Data {
             List<Branch>.from(json["branches"].map((x) => Branch.fromJson(x))),
         deliveryPartners: List<DeliveryPartner>.from(
             json["deliveryPartners"].map((x) => DeliveryPartner.fromJson(x))),
-        seasonsgroup: List<Seasonsgroup>.from(
+        seasonsGroup: List<Seasonsgroup>.from(
             json["seasonsgroup"].map((x) => Seasonsgroup.fromJson(x))),
         boxTypeList: List<BoxTypeList>.from(
             json["boxTypeList"].map((x) => BoxTypeList.fromJson(x))),
-        nonstockableitemList: List<NonstockableitemList>.from(
+        nonstockableItemList: List<NonstockableitemList>.from(
             json["nonstockableitemList"]
                 .map((x) => NonstockableitemList.fromJson(x))),
-        homedeliverymanagerList:
+        homeDeliveryManagerList:
             List<dynamic>.from(json["homedeliverymanagerList"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "treeItems": List<dynamic>.from(treeItems.map((x) => x.toJson())),
         "customItems": List<dynamic>.from(customItems.map((x) => x.toJson())),
-        "customToppings":
-            List<dynamic>.from(customToppings.map((x) => x.toJson())),
+        "customToppings": List<dynamic>.from(customToppings.map((x) => x.toJson())),
         "shapeCakes": List<dynamic>.from(shapeCakes.map((x) => x.toJson())),
         "itemTypes": List<dynamic>.from(itemTypes.map((x) => x.toJson())),
         "itemAddons": List<dynamic>.from(itemAddons.map((x) => x.toJson())),
-        "StandardShapes":
-            List<dynamic>.from(standardShapes.map((x) => x.toJson())),
+        "StandardShapes": List<dynamic>.from(standardShapes.map((x) => x.toJson())),
         "timeSlots": List<dynamic>.from(timeSlots.map((x) => x)),
         "branches": List<dynamic>.from(branches.map((x) => x.toJson())),
-        "deliveryPartners":
-            List<dynamic>.from(deliveryPartners.map((x) => x.toJson())),
-        "seasonsgroup": List<dynamic>.from(seasonsgroup.map((x) => x.toJson())),
+        "deliveryPartners": List<dynamic>.from(deliveryPartners.map((x) => x.toJson())),
+        "seasonsgroup": List<dynamic>.from(seasonsGroup.map((x) => x.toJson())),
         "boxTypeList": List<dynamic>.from(boxTypeList.map((x) => x.toJson())),
-        "nonstockableitemList":
-            List<dynamic>.from(nonstockableitemList.map((x) => x.toJson())),
+        "nonstockableitemList": List<dynamic>.from(nonstockableItemList.map((x) => x.toJson())),
         "homedeliverymanagerList":
-            List<dynamic>.from(homedeliverymanagerList.map((x) => x)),
+            List<dynamic>.from(homeDeliveryManagerList.map((x) => x)),
       };
 }
 
@@ -558,7 +554,8 @@ class TreeItemItem {
         parentId: json["ParentID"],
         type: json["type"],
         productId: json["ProductId"] ?? "",
-        unitPrice: json["UnitPrice"] == null ? 0.0 : json["UnitPrice"].toDouble(),
+        unitPrice:
+            json["UnitPrice"] == null ? 0.0 : json["UnitPrice"].toDouble(),
         vat: json["VAT"] == null ? 0.0 : json["VAT"].toDouble(),
         st: json["ST"] == null ? 0.0 : json["ST"].toDouble(),
         image: json["Image"],
@@ -586,10 +583,13 @@ class TreeItemItem {
         "Image": image,
         "CategoryId": categoryId == null ? "" : categoryId,
         "Weight": weight == null ? 0.0 : weight,
-        "UnitOfMeasure": unitOfMeasure == null ? "" : unitValues.reverse[unitOfMeasure],
+        "UnitOfMeasure":
+            unitOfMeasure == null ? "" : unitValues.reverse[unitOfMeasure],
         "Description": description,
         "IsAvailonSale": isAvailonSale,
-        "Manufacturer": manufacturer == null ? "" : manufacturerValues.reverse[manufacturer],
+        "Manufacturer": manufacturer == null
+            ? ""
+            : manufacturerValues.reverse[manufacturer],
         "ActualTempStock": actualTempStock,
         "ActualPysicalStock": actualPysicalStock,
         "ThresholdCount": thresholdCount,

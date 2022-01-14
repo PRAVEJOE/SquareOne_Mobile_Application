@@ -10,21 +10,23 @@ import 'popular_product.dart';
 import 'special_offers.dart';
 
 class Body extends StatelessWidget {
+  const Body({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
           children: [
-            LogoHeader(),
+            const LogoHeader(),
             SizedBox(height: getProportionateScreenHeight(20.0)),
-            HomeHeader(),
-            CheckConnection(),
+            const HomeHeader(),
+            const CheckConnection(),
             SizedBox(height: getProportionateScreenWidth(20.0)),
             //DiscountBanner(),
-            SpecialOffers(),//This weeks menu
+            const SpecialOffers(),//This weeks menu
             SizedBox(height: getProportionateScreenWidth(10.0)),
-            Categories(),
+            const Categories(),
             // SizedBox(height: getProportionateScreenWidth(30.0)),
             PopularProducts(),
             SizedBox(height: getProportionateScreenWidth(30.0)),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:square_one_mobile_app/components/default_button.dart';
 import 'package:square_one_mobile_app/controllers/item_Controller.dart';
-import 'package:square_one_mobile_app/controllers/tree_controller.dart';
-import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
 import 'package:square_one_mobile_app/screens/otp/otp_screen.dart';
 
@@ -15,7 +16,6 @@ import '../../../size_config.dart';
 class CheckoutCard extends StatefulWidget {
   // CheckoutCard(double totalPrice,  {Key? key}) : super(key: key);
 
-
   const CheckoutCard({
     Key? key,
     this.totalPrice = 0.0,
@@ -24,28 +24,26 @@ class CheckoutCard extends StatefulWidget {
 
   @override
   _CheckoutCardState createState() => _CheckoutCardState();
-
 }
 
 final ItemController itemController = Get.put(ItemController());
 
 class _CheckoutCardState extends State<CheckoutCard> {
-
   @override
   void initState() {
-
-    double totalPriceOfCart = itemController.totalPrice();
+   // double totalPriceOfCart = itemController.totalPrice() as double;
     print("ssssssssssssssssss");
     print(widget.totalPrice);
+    itemController.totalPrice();
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-print("sssssssssssskkkkkkkkkkkk");
+    print("sssssssssssskkkkkkkkkkkk");
     print(widget.totalPrice);
-    double totalPriceOfCart = itemController.totalPrice();
+   // double totalPriceOfCart = itemController.totalPrice() as double;
     //print("The number isdddddddddddd $widget.totalPrice");
 
     return Container(
@@ -99,34 +97,40 @@ print("sssssssssssskkkkkkkkkkkk");
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
-                Text.rich(
-                  TextSpan(
-                    text: "Total:\n",
-
-                    children: [
-
-
-
-                      TextSpan(
-                        //text: "($totalPriceOfCart)",
-
-                      //Text ("${score}");
-                        text: "${widget.totalPrice}",
-
-
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
+                Obx(() {
+                  if (itemController.isLoading.value) {
+                    return Center(
+                        child: SpinKitSpinningLines(
+                          color: Colors.black,
+                          size: 25.0,
+                        ));
+                  }
+                  else return Text.rich(TextSpan(
+                      text: "Total:\n",
+                      children: [
+                        TextSpan(
+                          //text: "($totalPriceOfCart)",
+                          //Text ("${score}");
+                          text: "${itemController.totalPrice()}",
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
+                      ],
+                    ));
+                }),
                 SizedBox(
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Check Out",
-                    press: () {
-                    //  Navigator.pushNamed(context, Delivery_Options.routeName);
-                      Navigator.pushNamed(context, OtpScreen.routeName);
+                    press: () async {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      String? customerID = prefs.getString('customerID');
+                      if(customerID==null){
+                        Navigator.pushNamed(context, OtpScreen.routeName);
+                      }else{
+                        Navigator.pushNamed(context, Delivery_Options.routeName);
+                      }
+                      //  Navigator.pushNamed(context, Delivery_Options.routeName);
+
                     },
                   ),
                 ),
@@ -137,6 +141,4 @@ print("sssssssssssskkkkkkkkkkkk");
       ),
     );
   }
-
-
 }

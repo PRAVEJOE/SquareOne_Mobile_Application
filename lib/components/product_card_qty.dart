@@ -8,21 +8,21 @@ import '../constants.dart';
 import '../size_config.dart';
 import 'default_button-small.dart';
 
-class ProductCard_Qty extends StatefulWidget {
-  const ProductCard_Qty({
+class ProductCardQty extends StatefulWidget {
+  const ProductCardQty({
     Key? key,
     this.width = 140,
-    this.aspectRetio = 1.02,
+    this.aspectRatio = 1.02,
     required this.product,
   }) : super(key: key);
-  final double width, aspectRetio;
+  final double width, aspectRatio;
   final Product product;
 
   @override
-  _ProductCard_QtyState createState() => _ProductCard_QtyState();
+  _ProductCardQtyState createState() => _ProductCardQtyState();
 }
 
-class _ProductCard_QtyState extends State<ProductCard_Qty> {
+class _ProductCardQtyState extends State<ProductCardQty> {
   int quantity = 0;
 
   void add() {
@@ -75,14 +75,14 @@ class _ProductCard_QtyState extends State<ProductCard_Qty> {
                 const SizedBox(height: 10),
                 Text(
                   widget.product.title,
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                   maxLines: 2,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "\₹${widget.product.price}",
+                      "₹${widget.product.price}",
                       style: TextStyle(
                         fontSize: getProportionateScreenWidth(18),
                         fontWeight: FontWeight.w600,
@@ -105,8 +105,8 @@ class _ProductCard_QtyState extends State<ProductCard_Qty> {
                         child: SvgPicture.asset(
                           "assets/icons/Heart Icon_2.svg",
                           color: widget.product.isFavourite
-                              ? Color(0xFFFF4848)
-                              : Color(0xFFDBDEE4),
+                              ? const Color(0xFFFF4848)
+                              : const Color(0xFFDBDEE4),
                         ),
                       ),
                     ),
@@ -115,11 +115,11 @@ class _ProductCard_QtyState extends State<ProductCard_Qty> {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    Text("Qty ",
+                    const Text("Qty ",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 14)),
-                    Spacer(),
-                    RoundedIconBtnStyle_2(
+                    const Spacer(),
+                    RoundedIconBtnStyle2(
                       icon: Icons.remove,
                       showShadow: true,
                       press: () {
@@ -128,10 +128,10 @@ class _ProductCard_QtyState extends State<ProductCard_Qty> {
                     ),
                     SizedBox(width: getProportionateScreenWidth(5)),
                     Text("$quantity ",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 15)),
                     SizedBox(width: getProportionateScreenWidth(5)),
-                    RoundedIconBtnStyle_2(
+                    RoundedIconBtnStyle2(
                         icon: Icons.add,
                         showShadow: true,
                         press: () {

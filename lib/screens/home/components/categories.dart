@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:square_one_mobile_app/screens/prebook/prebook_screen.dart';
@@ -12,14 +13,14 @@ class Categories extends StatefulWidget {
 }
 
 class _CategoriesState extends State<Categories> {
-  var stringtry;
+  var stringTry="";
 
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/birthday-cake.svg", "text": "Cakes", "id": "1"},
-      {"icon": "assets/icons/nachos.svg", "text": "Snacks", "id": "2"},
-      {"icon": "assets/icons/take-away.svg", "text": "Take Away", "id": 3},
+      {"icon": "assets/icons/birthday-cake.svg", "text": "Cakes"},
+      {"icon": "assets/icons/nachos.svg", "text": "Snacks"},
+      {"icon": "assets/icons/take-away.svg", "text": "Take Away"},
       {"icon": "assets/icons/food.svg", "text": "Condiments"},
       {"icon": "assets/icons/Discover.svg", "text": "More"},
     ];
@@ -50,10 +51,10 @@ class _CategoriesState extends State<Categories> {
   }
 
   void passIdToBodyPrebook(BuildContext context) async {
-    var result = await Navigator.pushNamed(context, '/prebook');
     setState(() {
-      result = stringtry;
-      print("stringtry" + stringtry);
+      if (kDebugMode) {
+        print("string" + stringTry);
+      }
     });
   }
 }
@@ -82,16 +83,16 @@ class CategoryCard extends StatelessWidget {
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
-                color: Color(0xFFFFECDF),
+                color: const Color(0xFFFFECDF),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: SvgPicture.asset(icon!),
             ),
-            SizedBox(height: 5),
+            const SizedBox(height: 5),
             Text(
               text!,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 13,
               ),
             )

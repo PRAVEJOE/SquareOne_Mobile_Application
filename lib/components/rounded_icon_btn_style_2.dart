@@ -3,8 +3,8 @@ import 'package:square_one_mobile_app/constants.dart';
 
 import '../size_config.dart';
 
-class RoundedIconBtnStyle_2 extends StatelessWidget {
-  const RoundedIconBtnStyle_2({
+class RoundedIconBtnStyle2 extends StatelessWidget {
+  const RoundedIconBtnStyle2({
     Key? key,
     required this.icon,
     required this.press,
@@ -25,9 +25,9 @@ class RoundedIconBtnStyle_2 extends StatelessWidget {
         boxShadow: [
           if (showShadow)
             BoxShadow(
-              offset: Offset(0, 6),
+              offset: const Offset(0, 6),
               blurRadius: 10,
-              color: Color(0xFFB0B0B0).withOpacity(0.2),
+              color: const Color(0xFFB0B0B0).withOpacity(0.2),
             ),
         ],
       ),

@@ -16,7 +16,7 @@ class PreBookProducts extends StatelessWidget {
             children: [
               ...List.generate(demoProducts2.length, (index) {
                 if (demoProducts2[index].isPopular)
-                  return ProductCard_Qty(product: demoProducts2[index]);
+                  return ProductCardQty(product: demoProducts2[index]);
 
                 return SizedBox
                     .shrink(); // here by default width and height is 0

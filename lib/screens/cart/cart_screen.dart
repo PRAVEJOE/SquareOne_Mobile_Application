@@ -19,7 +19,7 @@ class _CartScreenState extends State<CartScreen> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: CheckoutCard( totalPrice: itemController.totalPrice(),),
+      bottomNavigationBar: CheckoutCard(),
     );
   }
 

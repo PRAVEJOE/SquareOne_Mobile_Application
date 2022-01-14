@@ -28,11 +28,11 @@ class _BodyState extends State<Body> {
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               setState(() {
-
-                itemController.cart.removeAt(index);
+                itemController.removeProductToCart(index);
+               // itemController.cart.removeAt(index);
                 //itemController.totalPrice();
                 //CheckoutCard(totalPrice: itemController.totalPrice(),);
-                CheckoutCard(totalPrice: itemController.totalPrice(),);
+                CheckoutCard();
                // demoCarts.removeAt(index);
               });
 

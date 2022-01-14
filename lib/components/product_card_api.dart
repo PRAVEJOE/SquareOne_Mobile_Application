@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,7 +15,7 @@ import 'default_button-small.dart';
 class ProductCardAPI extends StatefulWidget {
   final Datum treeItemItem;
 
-  const ProductCardAPI(this.treeItemItem);
+   const ProductCardAPI(this.treeItemItem, {Key? key}) : super(key: key);
 
   @override
   _ProductCardAPIState createState() => _ProductCardAPIState();
@@ -69,14 +70,14 @@ class _ProductCardAPIState extends State<ProductCardAPI> {
               const SizedBox(height: 10),
               Text(
                 widget.treeItemItem.displayName,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\₹${widget.treeItemItem.unitPrice}",
+                    "₹${widget.treeItemItem.unitPrice}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -97,11 +98,11 @@ class _ProductCardAPIState extends State<ProductCardAPI> {
               const SizedBox(height: 10),
               Row(
                 children: [
-                  Text("Qty ",
+                  const Text("Qty ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                  Spacer(),
-                  RoundedIconBtnStyle_2(
+                  const Spacer(),
+                  RoundedIconBtnStyle2(
                     icon: Icons.remove,
                     showShadow: true,
                     press: () {
@@ -110,10 +111,10 @@ class _ProductCardAPIState extends State<ProductCardAPI> {
                   ),
                   SizedBox(width: getProportionateScreenWidth(5)),
                   Text("${widget.treeItemItem.quantity} ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 15)),
                   SizedBox(width: getProportionateScreenWidth(5)),
-                  RoundedIconBtnStyle_2(
+                  RoundedIconBtnStyle2(
                       icon: Icons.add,
                       showShadow: true,
                       press: () {
@@ -128,27 +129,24 @@ class _ProductCardAPIState extends State<ProductCardAPI> {
                   DefaultButtonSmall(
                     text: "Add To Cart",
                     press: () {
-                      print("Add to cart");
-
-                      //product: widget.treeItemItem;'
+                      if (kDebugMode) {
+                        print("Add to cart");
+                      }
                       if (widget.treeItemItem.quantity == 0) {
                         showToast(
                             "Sorry !!! Add at least one quantity to the ${widget.treeItemItem.displayName}",
                             context: context,
                             alignment: Alignment.center,
-                            position: StyledToastPosition(
+                            position: const StyledToastPosition(
                                 align: Alignment.topCenter, offset: 20.0));
-                      }else{
+                      } else {
                         itemController.addProductToCart(widget.treeItemItem);
-                        print(widget.treeItemItem);
+                        if (kDebugMode) {
+                          print(widget.treeItemItem);
+                        }
 
                         Navigator.pushNamed(context, CartScreen.routeName);
                       }
-
-
-                      // setState(() {
-                      //
-                      // });
                     },
                   ),
                 ],

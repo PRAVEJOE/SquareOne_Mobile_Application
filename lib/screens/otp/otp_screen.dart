@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
@@ -12,7 +11,6 @@ import 'package:square_one_mobile_app/screens/home/components/logo_header.dart';
 import 'package:square_one_mobile_app/services/Auth_Service.dart';
 
 import '../../constants.dart';
-import '../../constants.dart';
 
 class OtpScreen extends StatefulWidget {
   static String routeName = "/otp";
@@ -23,7 +21,10 @@ class OtpScreen extends StatefulWidget {
   _OtpScreenState createState() => _OtpScreenState();
 }
 
+
 class _OtpScreenState extends State<OtpScreen> {
+   var timer;
+
   int start = 30;
   bool wait = false;
   String buttonName = "Send";
@@ -34,6 +35,7 @@ class _OtpScreenState extends State<OtpScreen> {
   String smsCode = "";
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
+  String PhoneNo = '';
 
   BoxDecoration get _pinPutDecoration {
     return BoxDecoration(
@@ -146,20 +148,24 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void startTimer() {
+    super.initState();
     const onsec = Duration(seconds: 1);
-    Timer _timer = Timer.periodic(onsec, (timer) {
-      if (start == 0) {
-        setState(() {
-          timer.cancel();
-          _isLoading = false;
-          wait = false;
-        });
-      } else {
-        setState(() {
-          start--;
-        });
-      }
-    });
+    if (mounted) {
+      timer = new Timer.periodic(onsec, (timer) async {
+        if (start == 0) {
+          setState(() {
+            timer.cancel();
+            _isLoading = false;
+            wait = false;
+            start = 30;
+          });
+        } else {
+          setState(() {
+            start--;
+          });
+        }
+      });
+    }
   }
 
   Widget otpField() {
@@ -197,47 +203,45 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget textField() {
     return Container(
         width: MediaQuery.of(context).size.width - 40,
-        height: 60,
+        // height: 60,
         decoration: BoxDecoration(
           // color: Color(0xff1d1d1d),
           borderRadius: BorderRadius.circular(15),
         ),
-        child: TextField(
+        child: IntlPhoneField(
+          showCountryFlag: true,
           enabled: !wait,
           inputFormatters: [
-            LengthLimitingTextInputFormatter(10),
             FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
           ],
+          initialCountryCode: 'IN',
+          onChanged: (phone) {
+            PhoneNo = phone.completeNumber;
+            print(phone.completeNumber);
+          },
           controller: phoneController,
           style: TextStyle(color: kTextColor, fontSize: 19),
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            border: InputBorder.none,
+            border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff7b733))),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff7b733))),
+            focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xfff7b733))),
             disabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xfff7b733))),
-            hintText: "Enter your phone Number",
+            labelText: "Enter Phone Number",
+            hintText: "",
             hintStyle: TextStyle(color: kTextColor, fontSize: 17),
-            contentPadding:
-            const EdgeInsets.symmetric(vertical: 14, horizontal: -11),
+            contentPadding: EdgeInsets.all(0.0),
             prefixIcon: Padding(
-              padding: const EdgeInsets.only(right: 0),
-              child: CountryCodePicker(
-                onChanged: print,
-                // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
-                initialSelection: 'IN',
-                favorite: ['+39','FR'],
-                showDropDownButton: true,
-                showFlag: false,
-                showFlagDialog: true,
-                // optional. Shows only country name and flag
-                showCountryOnly: false,
-                // optional. Shows only country name and flag when popup is closed.
-                showOnlyCountryWhenClosed: false,
-                // optional. aligns the flag and the Text left
-
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 0),
+              child: Text(
+                "",
+                style: TextStyle(color: Colors.black, fontSize: 17),
               ),
             ),
-
             suffixIcon: InkWell(
               onTap: wait
                   ? null
@@ -249,10 +253,10 @@ class _OtpScreenState extends State<OtpScreen> {
                           buttonName = "Resend";
                         });
                         await authClass.verifyPhoneNumber(
-                            "+91 ${phoneController.text}", context, setData);
+                            " ${PhoneNo}", context, setData);
                       } else {
                         showToast(
-                            "${phoneController.text} is invalid phone number,Please enter correct phone number",
+                            "${PhoneNo} is invalid phone number,Please enter correct phone number",
                             context: context,
                             alignment: Alignment.center,
                             position: StyledToastPosition(
@@ -261,17 +265,17 @@ class _OtpScreenState extends State<OtpScreen> {
                     },
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 2),
                 child: (wait)
                     ? LoadingAnimationWidget.staggeredDotWave(
-                            color: Colors.black,
-                            size: 35,
-                        )
+                        color: Colors.black,
+                        size: 35,
+                      )
                     : Text(
                         buttonName,
                         style: TextStyle(
                           color: wait ? Colors.white : Colors.red,
-                          fontSize: 17,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -282,19 +286,18 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void setData(String verificationId) {
-    if(verificationId=="false"){
-      wait=false;
+    if (verificationId == "false") {
+      wait = false;
       setState(() {
-        wait=false;
+        wait = false;
       });
-    }else{
+    } else {
       setState(() {
         verificationIdFinal = verificationId;
       });
       startTimer();
     }
-    }
-
+  }
 }
 
 void _showSnackBar(String pin, BuildContext context) {
@@ -311,7 +314,4 @@ void _showSnackBar(String pin, BuildContext context) {
     ),
     backgroundColor: Colors.black,
   );
-  Scaffold.of(context)
-    ..hideCurrentSnackBar()
-    ..showSnackBar(snackBar);
 }

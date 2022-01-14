@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:square_one_mobile_app/models/Product.dart';
 import 'package:square_one_mobile_app/screens/details/details_screen.dart';
+
 import '../constants.dart';
 import '../size_config.dart';
 
@@ -9,17 +10,17 @@ class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     this.width = 140,
-    this.aspectRetio = 1.02,
+    this.aspectRatio = 1.02,
     required this.product,
   }) : super(key: key);
 
-  final double width, aspectRetio;
+  final double width, aspectRatio;
   final Product product;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20, 4, 20, 4),
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 4),
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
@@ -48,14 +49,14 @@ class ProductCard extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 product.title,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 maxLines: 2,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\₹${product.price}",
+                    "₹${product.price}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(18),
                       fontWeight: FontWeight.w600,
@@ -78,14 +79,13 @@ class ProductCard extends StatelessWidget {
                       child: SvgPicture.asset(
                         "assets/icons/Heart Icon_2.svg",
                         color: product.isFavourite
-                            ? Color(0xFFFF4848)
-                            : Color(0xFFDBDEE4),
+                            ? const Color(0xFFFF4848)
+                            : const Color(0xFFDBDEE4),
                       ),
                     ),
                   ),
                 ],
               ),
-
             ],
           ),
         ),

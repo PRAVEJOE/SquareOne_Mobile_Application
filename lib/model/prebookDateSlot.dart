@@ -4,22 +4,22 @@
 
 import 'dart:convert';
 
-Welcome welcomeFromJson(String str) => Welcome.fromJson(json.decode(str));
+PrebookDateSlot welcomeFromJson(String str) => PrebookDateSlot.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String welcomeToJson(PrebookDateSlot data) => json.encode(data.toJson());
 
-class Welcome {
-  Welcome({
+class PrebookDateSlot {
+  PrebookDateSlot({
     required this.result,
     required this.data,
   });
 
   Result result;
-  List<Datum> data;
+  List<PrebookDateAndSlot> data;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory PrebookDateSlot.fromJson(Map<String, dynamic> json) => PrebookDateSlot(
     result: Result.fromJson(json["Result"]),
-    data: List<Datum>.from(json["Data"].map((x) => Datum.fromJson(x))),
+    data: List<PrebookDateAndSlot>.from(json["Data"].map((x) => PrebookDateAndSlot.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,28 +28,28 @@ class Welcome {
   };
 }
 
-class Datum {
-  Datum({
+class PrebookDateAndSlot {
+  PrebookDateAndSlot({
     required this.days,
-    required this.prebookslots,
+    required this.preBookSlots,
   });
 
   String days;
-  List<Prebookslot> prebookslots;
+  List<PreBookSlot> preBookSlots;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory PrebookDateAndSlot.fromJson(Map<String, dynamic> json) => PrebookDateAndSlot(
     days: json["days"],
-    prebookslots: List<Prebookslot>.from(json["prebookslots"].map((x) => Prebookslot.fromJson(x))),
+    preBookSlots: List<PreBookSlot>.from(json["prebookslots"].map((x) => PreBookSlot.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "days": days,
-    "prebookslots": List<dynamic>.from(prebookslots.map((x) => x.toJson())),
+    "prebookslots": List<dynamic>.from(preBookSlots.map((x) => x.toJson())),
   };
 }
 
-class Prebookslot {
-  Prebookslot({
+class PreBookSlot {
+  PreBookSlot({
     this.slotsNames='',
     this.days='',
   });
@@ -57,7 +57,7 @@ class Prebookslot {
   String slotsNames;
   String days;
 
-  factory Prebookslot.fromJson(Map<String, dynamic> json) => Prebookslot(
+  factory PreBookSlot.fromJson(Map<String, dynamic> json) => PreBookSlot(
     slotsNames: json["slotsNames"],
     days: json["days"],
   );

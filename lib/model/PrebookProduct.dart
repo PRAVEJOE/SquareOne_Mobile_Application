@@ -1,43 +1,40 @@
-
-
 import 'dart:convert';
 
-PrebookProduct prebookProductFromJson(String str) => PrebookProduct.fromJson(json.decode(str));
+PrebookProduct prebookProductFromJson(String str) =>
+    PrebookProduct.fromJson(json.decode(str));
 
 String prebookProductToJson(PrebookProduct data) => json.encode(data.toJson());
 
 class PrebookProduct {
   PrebookProduct({
-   required this.result,
-   required this.data,
+    required this.result,
+    required this.data,
   });
 
   Result result;
   List<Datum> data;
 
   factory PrebookProduct.fromJson(Map<String, dynamic> json) => PrebookProduct(
-    result: Result.fromJson(json["Result"]),
-    data: List<Datum>.from(json["Data"].map((x) => Datum.fromJson(x))),
-  );
-
-
+        result: Result.fromJson(json["Result"]),
+        data: List<Datum>.from(json["Data"].map((x) => Datum.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "Result": result.toJson(),
-    "Data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "Result": result.toJson(),
+        "Data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }
 
 class Datum {
   Datum({
-   required this.itemId,
+    required this.itemId,
     required this.productName,
     required this.displayName,
     required this.onlineCategoryName,
     required this.unitPrice,
     required this.itemWtForHd,
-    required this.hDitemWtUnit,
-    this.quantity=0,
+    required this.hditemWtUnit,
+    this.quantity = 0,
     required this.maximumPossible,
   });
 
@@ -47,41 +44,39 @@ class Datum {
   String onlineCategoryName;
   String unitPrice;
   String itemWtForHd;
-  String hDitemWtUnit;
+  String hditemWtUnit;
   String maximumPossible;
   int quantity;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    itemId: json["itemID"],
-    productName: json["ProductName"],
-    displayName: json["DisplayName"],
-    onlineCategoryName: json["OnlineCategoryName"],
-    unitPrice: json["UnitPrice"],
-    itemWtForHd: json["ItemWtForHD"],
-    hDitemWtUnit: json["HDitemWtUnit"],
-    maximumPossible: json["maximumPossible"],
-      quantity:json["quantity"] == null ? 0 : json["quantity"]
-  );
+      itemId: json["itemID"],
+      productName: json["ProductName"],
+      displayName: json["DisplayName"],
+      onlineCategoryName: json["OnlineCategoryName"],
+      unitPrice: json["UnitPrice"],
+      itemWtForHd: json["ItemWtForHD"],
+      hditemWtUnit: json["HDitemWtUnit"],
+      maximumPossible: json["maximumPossible"],
+      quantity: json["quantity"] == null ? 0 : json["quantity"]);
 
   Map<String, dynamic> toJson() => {
-    "itemID": itemId,
-    "ProductName": productName,
-    "DisplayName": displayName,
-    "OnlineCategoryName": onlineCategoryNameValues.reverse[onlineCategoryName],
-    "UnitPrice": unitPrice,
-    "ItemWtForHD": itemWtForHd,
-    "HDitemWtUnit": hDitemWtUnitValues.reverse[hDitemWtUnit],
-    "maximumPossible": maximumPossible,
-    "quantity":quantity
-  };
+        "itemID": itemId,
+        "ProductName": productName,
+        "DisplayName": displayName,
+        "OnlineCategoryName":
+            onlineCategoryNameValues.reverse[onlineCategoryName],
+        "UnitPrice": unitPrice,
+        "ItemWtForHD": itemWtForHd,
+        "HDitemWtUnit": hdItemWtUnitValues.reverse[hditemWtUnit],
+        "maximumPossible": maximumPossible,
+        "quantity": quantity
+      };
 }
 
-enum HDitemWtUnit { KG, ML }
+enum HDItemWtUnit { KG, ML }
 
-final hDitemWtUnitValues = EnumValues({
-  "Kg": HDitemWtUnit.KG,
-  "ml": HDitemWtUnit.ML
-});
+final hdItemWtUnitValues =
+    EnumValues({"Kg": HDItemWtUnit.KG, "ml": HDItemWtUnit.ML});
 
 enum OnlineCategoryName { SNACKS, CONDIMENTS, SPECIALS, TAKE_AWAYS, CAKES }
 
@@ -105,16 +100,16 @@ class Result {
   String reason;
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
-    status: json["Status"],
-    success: json["Success"],
-    reason: json["Reason"],
-  );
+        status: json["Status"],
+        success: json["Success"],
+        reason: json["Reason"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "Status": status,
-    "Success": success,
-    "Reason": reason,
-  };
+        "Status": status,
+        "Success": success,
+        "Reason": reason,
+      };
 }
 
 class EnumValues<T> {

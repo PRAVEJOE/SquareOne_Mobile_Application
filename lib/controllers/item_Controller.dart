@@ -1,48 +1,52 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:square_one_mobile_app/model/PrebookProduct.dart';
-import 'package:square_one_mobile_app/screens/cart/components/check_out_card.dart';
 
 enum HomeState { normal, cart }
 
-class ItemController extends ChangeNotifier {
+class ItemController extends GetxController {
   HomeState homeState = HomeState.normal;
-
+  var isLoading = true.obs;
   List<Datum> cart = [];
 
   void changeHomeState(HomeState state) {
     homeState = state;
-    notifyListeners();
   }
 
   void addProductToCart(Datum product) {
-    // for (Datum item in cart) {
-    //   if (item.productName! == product.productName) {
-    //     item.increment();
-    //     notifyListeners();
-    //     return;
-    //   }
-    // }
     cart.add(product);
-    notifyListeners();
-    print(cart.length);
+    if (kDebugMode) {
+      print(cart.length);
+    }
   }
 
-
-
-
+  void removeProductToCart(index) {
+    try {
+      isLoading(true);
+      cart.removeAt(index);
+      if (kDebugMode) {
+        print(cart.length);
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 
   double totalPrice() {
     // add your price calculation logic
-    double total = 0;
-    cart.forEach((item) {
-      total += double.parse(item.unitPrice) * (item.quantity).toDouble();
-    });
-    print(total);
-
-    return total;
+    try {
+      isLoading(true);
+      double total = 0;
+      for (var item in cart) {
+        total += double.parse(item.unitPrice) * (item.quantity).toDouble();
+      }
+      if (kDebugMode) {
+        print("Total Value in Cart" + total.toString());
+      }
+      return total;
+    } finally {
+      isLoading(false);
+    }
   }
-
-
-// int totalCartItems() => cart.fold(
-//     0, (previousValue, element) => previousValue + element.quantity);
 }

@@ -4,7 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:square_one_mobile_app/model/customerfulldetails.dart';
+import 'package:square_one_mobile_app/model/customerfulldetails.dart';
 import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
+import 'package:square_one_mobile_app/services/remote_services.dart';
 
 class AuthClass {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -38,9 +42,10 @@ class AuthClass {
   Future<String?> getToken() async {
     return await storage.read(key: "token");
   }
-
+  String phoneNo="";
   Future<void> verifyPhoneNumber(
-      String phoneNumber, BuildContext context, Function setData) async {
+       phoneNumber, BuildContext context, Function setData) async {
+    phoneNo=phoneNumber;
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential phoneAuthCredential) async {
       showSnackBar(context, "Verification Completed");
@@ -72,7 +77,7 @@ class AuthClass {
           codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
     } catch (e) {
       showSnackBar(context, e.toString());
-      setData("false");
+     // setData("false");
     }
   }
 
@@ -85,12 +90,27 @@ class AuthClass {
       UserCredential userCredential =
       await _auth.signInWithCredential(credential);
       storeTokenAndData(userCredential);
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (builder) => Delivery_Options()),
-              (route) => false);
+      String number = phoneNo;
+      if(number.contains("+91")){
+         number = phoneNo.substring(4);
+      }else if(number.contains("+")&&!number.contains("+91")){
+        number = phoneNo.substring(2);
+      }
 
-      showSnackBar(context, "logged In");
+      final result = await RemoteServices.getCustomerDetails(number);
+      if(result!=null) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (builder) => Delivery_Options()),);
+      }
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('firstName', result.data[0].firstName.toString().toUpperCase());
+      await prefs.setString('lastName', result.data[0].lastName.toString().toUpperCase());
+      await prefs.setString('customerID', result.data[0].customerId.toString().toUpperCase());
+      await prefs.setString('phoneNo', result.data[0].phone.toString().toUpperCase());
+
+      showSnackBar(context,"Hi, "+ result.data[0].firstName.toString().toUpperCase()+ " " + result.data[0].lastName.toString().toUpperCase()+", Welcome Back");
+
     } catch (e) {
       showSnackBar(context, e.toString());
 

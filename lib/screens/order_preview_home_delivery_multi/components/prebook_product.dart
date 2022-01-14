@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:square_one_mobile_app/components/product_card_qty_without_add_cart.dart';
+import 'package:square_one_mobile_app/components/product_card_qty_without_add_to_cart.dart';
 import 'package:square_one_mobile_app/models/Cart.dart';
 
 class PreBookProducts extends StatefulWidget {
@@ -43,7 +43,7 @@ class _PreBookProductsState extends State<PreBookProducts> {
                       ],
                     ),
                   ),
-                  child: ProductCard_Qty_W0_Cart(cart: demoCarts[index])),
+                  child: ProductCardQtyWithOutAddToCart(cart: demoCarts[index])),
             ),
           ),
         )),
