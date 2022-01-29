@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:square_one_mobile_app/components/product_card_api.dart';
 import 'package:square_one_mobile_app/components/product_card_qty_without_add_to_cart.dart';
 import 'package:square_one_mobile_app/models/Cart.dart';
 
@@ -41,7 +42,7 @@ class _OrderListState extends State<OrderList> {
                 ],
               ),
             ),
-            child: ProductCardQtyWithOutAddToCart(cart: demoCarts[index]),
+            child: ProductCardQtyWithOutAddToCart(cart: itemController.cart[index]),
           ),
         ),
       ),

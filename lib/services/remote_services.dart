@@ -4,6 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:square_one_mobile_app/model/PrebookProduct.dart';
 import 'package:square_one_mobile_app/model/RequestParamPrebook.dart';
+import 'package:square_one_mobile_app/model/RequestUpdateAddress.dart';
+import 'package:square_one_mobile_app/model/RequestUpdateProfile.dart';
+import 'package:square_one_mobile_app/model/customerAddUpdate.dart';
 import 'package:square_one_mobile_app/model/customerfulldetails.dart';
 import 'package:square_one_mobile_app/model/prebookDateSlot.dart';
 import 'package:square_one_mobile_app/model/product.dart';
@@ -24,14 +27,14 @@ class RemoteServices {
       return null;
     }
   }
-
+//Prebook Item based on slot and date
   static Future getPrebookItems(RequestParamPrebook item) async {
     try {
       Map<String, String> headers = {"content-type": "application/json"};
       final queryParameters = {'params': item.toJson()};
       print('bodiesss: $queryParameters');
-      print(API + 'getprebookproducts');
-      var response = await http.post(Uri.parse(API + 'getprebookproducts'),
+      print(API + 'getallprebookproducts');
+      var response = await http.post(Uri.parse(API + 'getallprebookproducts'),
           body: jsonEncode(queryParameters), headers: headers);
       if (response.statusCode == 200) {
         print("Success");
@@ -47,7 +50,7 @@ class RemoteServices {
       return null;
     }
   }
-
+//Prebook Slot and date
   static Future getPrebookDateSlot() async {
     try {
       print(API + 'getprebookDays');
@@ -73,6 +76,7 @@ class RemoteServices {
       return null;
     }
   }
+  //Customer details fetch
   static Future getCustomerDetails(String number) async {
     var response = await client.get(Uri.parse(
         API+'GetCustomerByMobile/'+number));
@@ -85,4 +89,61 @@ class RemoteServices {
       return null;
     }
   }
-}
+
+
+//New Customer Add On and Update data
+  static Future getCustomerUpdate(RequestUpdateProfile item) async {
+    var isloading=true;
+    try {
+      isloading=true;
+      Map<String, String> headers = {"content-type": "application/json"};
+      final queryParameters = {'params': item.toJson()};
+      print('bodiesss: $queryParameters');
+      print(API + 'SaveCustomerInfo');
+      var response = await http.put(Uri.parse(API + 'SaveCustomerInfo'),
+          body: jsonEncode(queryParameters), headers: headers);
+      if (response.statusCode == 200) {
+        print("Success");
+        // String responseBody = utf8.decoder.convert(response.bodyBytes);
+        var jsonString = response.body;
+        print(jsonString);
+        return customerUpdateFromJson(jsonString);
+        //print(responseBody);
+      } else {
+        isloading=false;
+        return null;
+
+      }
+    } catch(e) {
+      isloading=false;
+      return null;
+    }
+  }
+  //New Address Add On and Update data
+  static Future getAddressUpdate(RequestUpdatedAddress item) async {
+    var isloading = true;
+    try {
+      isloading = true;
+      Map<String, String> headers = {"content-type": "application/json"};
+      final queryParameters = {'params': item.toJson()};
+      print('bodiesss: $queryParameters');
+      print(API + 'SaveCustomerInfo');
+      var response = await http.put(Uri.parse(API + 'SaveCustomerAddress'),
+          body: jsonEncode(queryParameters), headers: headers);
+      if (response.statusCode == 200) {
+        print("Success");
+        // String responseBody = utf8.decoder.convert(response.bodyBytes);
+        var jsonString = response.body;
+        print(jsonString);
+        return customerUpdateFromJson(jsonString);
+        //print(responseBody);
+      } else {
+        isloading = false;
+        return null;
+      }
+    } catch (e) {
+      isloading = false;
+      return null;
+    }
+  }
+  }

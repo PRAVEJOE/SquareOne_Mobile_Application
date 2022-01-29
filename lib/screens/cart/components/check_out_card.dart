@@ -14,8 +14,6 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class CheckoutCard extends StatefulWidget {
-  // CheckoutCard(double totalPrice,  {Key? key}) : super(key: key);
-
   const CheckoutCard({
     Key? key,
     this.totalPrice = 0.0,
@@ -26,25 +24,23 @@ class CheckoutCard extends StatefulWidget {
   _CheckoutCardState createState() => _CheckoutCardState();
 }
 
-final ItemController itemController = Get.put(ItemController());
-
 class _CheckoutCardState extends State<CheckoutCard> {
+  double total = 0;
+
   @override
   void initState() {
-   // double totalPriceOfCart = itemController.totalPrice() as double;
-    print("ssssssssssssssssss");
-    print(widget.totalPrice);
-    itemController.totalPrice();
     // TODO: implement initState
     super.initState();
+    final ItemController itemController = Get.put(ItemController());
+
+    for (var item in itemController.cart) {
+      total += double.parse(item.unitPrice) * (item.quantity).toDouble();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("sssssssssssskkkkkkkkkkkk");
-    print(widget.totalPrice);
-   // double totalPriceOfCart = itemController.totalPrice() as double;
-    //print("The number isdddddddddddd $widget.totalPrice");
+    final ItemController itemController = Get.put(ItemController());
 
     return Container(
       padding: EdgeInsets.symmetric(
@@ -68,76 +64,73 @@ class _CheckoutCardState extends State<CheckoutCard> {
       ),
       child: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    height: getProportionateScreenWidth(40),
+                    width: getProportionateScreenWidth(40),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF5F6F9),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: SvgPicture.asset("assets/icons/receipt.svg"),
                   ),
-                  child: SvgPicture.asset("assets/icons/receipt.svg"),
-                ),
-                Spacer(),
-                Text("Add voucher code"),
-                const SizedBox(width: 10),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: kTextColor,
-                )
-              ],
-            ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(() {
-                  if (itemController.isLoading.value) {
-                    return Center(
-                        child: SpinKitSpinningLines(
-                          color: Colors.black,
-                          size: 25.0,
-                        ));
-                  }
-                  else return Text.rich(TextSpan(
+                  const Spacer(),
+                  const Text("Add voucher code"),
+                  const SizedBox(width: 10),
+                  const Icon(
+                    Icons.arrow_forward_ios,
+                    size: 12,
+                    color: kTextColor,
+                  )
+                ],
+              ),
+              SizedBox(height: getProportionateScreenHeight(20)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Obx(() {
+                    if(itemController.isLoading.value){
+                    return  const Center(
+                          child: SpinKitWave(
+                            color: Colors.black,
+                            size: 1.0,
+                          ));
+                    }else
+                    return Text.rich(TextSpan(
                       text: "Total:\n",
                       children: [
                         TextSpan(
-                          //text: "($totalPriceOfCart)",
-                          //Text ("${score}");
-                          text: "${itemController.totalPrice()}",
+                          text: (itemController.cart.length>0)?itemController.total.toString():"0.0",
                           style: TextStyle(fontSize: 16, color: Colors.black),
                         ),
                       ],
                     ));
-                }),
-                SizedBox(
-                  width: getProportionateScreenWidth(190),
-                  child: DefaultButton(
-                    text: "Check Out",
-                    press: () async {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      String? customerID = prefs.getString('customerID');
-                      if(customerID==null){
-                        Navigator.pushNamed(context, OtpScreen.routeName);
-                      }else{
-                        Navigator.pushNamed(context, Delivery_Options.routeName);
-                      }
-                      //  Navigator.pushNamed(context, Delivery_Options.routeName);
-
-                    },
+                  }),
+                  SizedBox(
+                    width: getProportionateScreenWidth(190),
+                    child: DefaultButton(
+                      text: "Check Out",
+                      press: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        String? customerID = prefs.getString('customerID');
+                        if (customerID == null) {
+                          Navigator.pushNamed(context, OtpScreen.routeName);
+                        } else {
+                          Navigator.pushNamed(
+                              context, Delivery_Options.routeName);
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              ),
+            ]),
       ),
     );
   }

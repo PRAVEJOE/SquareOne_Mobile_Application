@@ -4,6 +4,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:square_one_mobile_app/controllers/item_Controller.dart';
 import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 import 'package:square_one_mobile_app/model/PrebookProduct.dart';
+import 'package:square_one_mobile_app/model/cartModel.dart';
 import 'package:square_one_mobile_app/models/Cart.dart';
 
 import '../../../constants.dart';
@@ -11,7 +12,7 @@ import '../../../size_config.dart';
 
 
 class CartCard extends StatefulWidget {
-  final Datum cart;
+  final CartAddedItem cart;
 
   const CartCard({Key? key,required this.cart,}) : super(key: key);
   //final Cart cart;
@@ -49,44 +50,46 @@ class _CartCardState extends State<CartCard> {
             ),
           ),
           SizedBox(width: 20),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.cart.displayName,
-                style: TextStyle(color: Colors.black, fontSize: 16),
-                maxLines: 2,
-              ),
-              SizedBox(height: 10),
-              Text.rich(
-                TextSpan(
-                  text: "\₹ ${widget.cart.unitPrice}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryColor),
-                  children: [
-                    TextSpan(
-                      text: " x${widget.cart.quantity}",
-                        style: Theme.of(context).textTheme.bodyText1),
-                  ],
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.cart.displayName,
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  maxLines: 2,
                 ),
-              ),
-              SizedBox(height: 10),
-              Text.rich(
-                TextSpan(
-                  text: "Date :",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600, color: kPrimaryColor),
-                  children: [
-                    TextSpan(
-                        text: "20-10-2021,",
-                        style: Theme.of(context).textTheme.bodyText1),
-                    TextSpan(
-                        text: " 02:00 PM",
-                        style: Theme.of(context).textTheme.bodyText1),
-                  ],
+                SizedBox(height: 10),
+                Text.rich(
+                  TextSpan(
+                    text: "\₹ ${widget.cart.unitPrice}",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, color: kPrimaryColor),
+                    children: [
+                      TextSpan(
+                        text: " x${widget.cart.quantity}",
+                          style: Theme.of(context).textTheme.bodyText1),
+                    ],
+                  ),
                 ),
-              )
-            ],
+                SizedBox(height: 10),
+                Text.rich(
+                  TextSpan(
+                    text: "Date :",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600, color: kPrimaryColor),
+                    children: [
+                      TextSpan(
+                          text: widget.cart.date+" ",
+                          style: Theme.of(context).textTheme.bodyText1),
+                      TextSpan(
+                          text: widget.cart.slot,
+                          style: Theme.of(context).textTheme.bodyText1),
+                    ],
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),

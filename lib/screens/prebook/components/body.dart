@@ -14,15 +14,27 @@ import 'cateogry_selector_2.dart';
 import 'date_picker.dart';
 import 'home_header.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   late int selectedIndex = 0;
 
   Body(this.selectedIndex, {Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+
+  @override
+  void initState() {
+    super.initState();
     final TreeController productController = Get.put(TreeController());
     productController.slotDate();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
     return SafeArea(child: Obx(() {
       if (productController.slotDateIsLoading.value) {
         return const Center(
@@ -31,34 +43,45 @@ class Body extends StatelessWidget {
           size: 50.0,
         ));
       } else if (productController.prebookDateSlotList.length > 0) {
-        return SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: getProportionateScreenWidth(20)),
-              HomeHeader(),
-              SizedBox(height: getProportionateScreenHeight(20.0)),
-              Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: getProportionateScreenWidth(2)),
-                  child: Text(
-                    "This Week's Menu",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-              SizedBox(height: getProportionateScreenHeight(20.0)),
-              CheckConnection(),
-              DateSelector(),
+        return NestedScrollView(
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                pinned: false,
+                backgroundColor: Colors.white,
+                automaticallyImplyLeading: false,
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.pin,
+                  background: Column(
+                    children: [
+                      SizedBox(height: getProportionateScreenWidth(20)),
+                      HomeHeader(),
+                      SizedBox(height: getProportionateScreenHeight(20.0)),
+                      Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: getProportionateScreenWidth(2)),
+                          child: Text(
+                            "This Week's Menu",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                      SizedBox(height: getProportionateScreenHeight(20.0)),
+                      CheckConnection(),
+                      DateSelector(),
 
-              SlotChooser(),
-              SizedBox(height: getProportionateScreenHeight(0.0)),
-              CategorySelector_2(selectedIndex),
-              // PreBookProducts(),
-              SizedBox(height: getProportionateScreenWidth(30.0)),
-            ],
-          ),
+                      SlotChooser(),
+                      SizedBox(height: getProportionateScreenHeight(0.0)),
+                    ],
+                  ),
+                ),
+                expandedHeight: 380.0,
+              )
+            ];
+          },
+          body: MyTabbedWidget(),
         );
       } else {
         return ErrorPage(

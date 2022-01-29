@@ -1,13 +1,13 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:square_one_mobile_app/model/customerfulldetails.dart';
-import 'package:square_one_mobile_app/model/customerfulldetails.dart';
+import 'package:square_one_mobile_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:square_one_mobile_app/screens/delivery_options/delivery_screen.dart';
+import 'package:square_one_mobile_app/screens/otpLoginSignUp/otpLoginSignUpScreen.dart';
+import 'package:square_one_mobile_app/screens/profile/profile_screen.dart';
 import 'package:square_one_mobile_app/services/remote_services.dart';
 
 class AuthClass {
@@ -20,6 +20,7 @@ class AuthClass {
   );
 
   final storage = new FlutterSecureStorage();
+
   Future<void> signOut({required BuildContext context}) async {
     try {
       await _googleSignIn.signOut();
@@ -42,22 +43,23 @@ class AuthClass {
   Future<String?> getToken() async {
     return await storage.read(key: "token");
   }
-  String phoneNo="";
+
+  String phoneNo = "";
+
   Future<void> verifyPhoneNumber(
-       phoneNumber, BuildContext context, Function setData) async {
-    phoneNo=phoneNumber;
+      phoneNumber, BuildContext context, Function setData) async {
+    phoneNo = phoneNumber;
     PhoneVerificationCompleted verificationCompleted =
         (PhoneAuthCredential phoneAuthCredential) async {
       showSnackBar(context, "Verification Completed");
-
     };
     PhoneVerificationFailed verificationFailed =
         (FirebaseAuthException exception) {
-      showSnackBar(context,exception.toString());
+      showSnackBar(context, exception.toString());
       setData("false");
     };
     PhoneCodeSent codeSent =
-        (String verificationID, [ int? forceResnedingtoken]) {
+        (String verificationID, [int? forceResnedingtoken]) {
       showSnackBar(context, "Verification Code sent on the phone number");
       setData(verificationID);
     } as PhoneCodeSent;
@@ -77,7 +79,6 @@ class AuthClass {
           codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
     } catch (e) {
       showSnackBar(context, e.toString());
-     // setData("false");
     }
   }
 
@@ -88,32 +89,59 @@ class AuthClass {
           verificationId: verificationId, smsCode: smsCode);
 
       UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
       storeTokenAndData(userCredential);
       String number = phoneNo;
-      if(number.contains("+91")){
-         number = phoneNo.substring(4);
-      }else if(number.contains("+")&&!number.contains("+91")){
+      if (number.contains("+91")) {
+        number = phoneNo.substring(4);
+      } else if (number.contains("+") && !number.contains("+91")) {
         number = phoneNo.substring(2);
       }
 
       final result = await RemoteServices.getCustomerDetails(number);
-      if(result!=null) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('phoneNo', number.toString().toUpperCase());
+      print(result.Cartitems.toString().length );
+
+      if (result.Cartitems.toString().length != 2) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setString(
+            'firstName', result.Cartitems[0].firstName.toString().toUpperCase());
+        await prefs.setString(
+            'lastName', result.Cartitems[0].lastName.toString().toUpperCase());
+        await prefs.setString(
+            'customerID', result.Cartitems[0].customerId.toString().toUpperCase());
+        await prefs.setString(
+            'phoneNo', result.Cartitems[0].phone.toString().toUpperCase());
+      }
+      if (result.Cartitems.toString().length != 2) {
+        showSnackBar(
+            context,
+            "Hi, " +
+                result.Cartitems[0].firstName.toString().toUpperCase() +
+                " " +
+                result.Cartitems[0].lastName.toString().toUpperCase() +
+                ", Welcome Back");
+      }
+      if (result.Cartitems.toString().length  != 2  && prefs.getString("loginActivation")!="activated") {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (builder) => Delivery_Options()),);
-      }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('firstName', result.data[0].firstName.toString().toUpperCase());
-      await prefs.setString('lastName', result.data[0].lastName.toString().toUpperCase());
-      await prefs.setString('customerID', result.data[0].customerId.toString().toUpperCase());
-      await prefs.setString('phoneNo', result.data[0].phone.toString().toUpperCase());
+          MaterialPageRoute(builder: (builder) => Delivery_Options()),
+        );
 
-      showSnackBar(context,"Hi, "+ result.data[0].firstName.toString().toUpperCase()+ " " + result.data[0].lastName.toString().toUpperCase()+", Welcome Back");
+      }else if(result.Cartitems.toString().length != 2 && prefs.getString("loginActivation")=="activated"){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (builder) => ProfileScreen()),
+        );
+      }else if(result.Cartitems.toString().length == 2){
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (builder) => OtpLoginSignUp()),);
+      }
 
     } catch (e) {
       showSnackBar(context, e.toString());
-
     }
   }
 

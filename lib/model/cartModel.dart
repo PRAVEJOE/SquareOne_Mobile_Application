@@ -4,58 +4,54 @@
 
 import 'dart:convert';
 
-PrebookProduct prebookProductFromJson(String str) => PrebookProduct.fromJson(json.decode(str));
+CartProduct cartProductFromJson(String str) => CartProduct.fromJson(json.decode(str));
 
-String prebookProductToJson(PrebookProduct data) => json.encode(data.toJson());
+String cartProductToJson(CartProduct data) => json.encode(data.toJson());
 
-class PrebookProduct {
-  PrebookProduct({
-    required this.result,
-    required this.data,
-    this.orderTotal="0.0",
+class CartProduct {
+  CartProduct({
+    required this.Cartitems,
   });
 
-  Result result;
-  List<Datum> data;
-  String orderTotal;
+  List<Cart> Cartitems;
 
-  factory PrebookProduct.fromJson(Map<String, dynamic> json) => PrebookProduct(
-    result: Result.fromJson(json["Result"]),
-    data: List<Datum>.from(json["Data"].map((x) => Datum.fromJson(x))),
-    orderTotal: json["0rderTotal"] == null ? "0.0" : json["0rderTotal"]
+  factory CartProduct.fromJson(Map<String, dynamic> json) => CartProduct(
+      Cartitems: List<Cart>.from(json["Data"].map((x) => Cart.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "Result": result.toJson(),
-    "Data": List<dynamic>.from(data.map((x) => x.toJson())),
-    "orderTotal":orderTotal,
+    "cart": List<dynamic>.from(Cartitems.map((x) => x.toJson())),
   };
 }
 
-class Datum {
-  Datum({
+class Cart {
+  Cart({
+    required this.deliveryDate,
     required this.deliverySlot,
-    required this.prebookItems,
+    required this.cartAddedItems,
   });
 
+  String deliveryDate;
   String deliverySlot;
-  List<PrebookItem> prebookItems;
+  List<CartAddedItem> cartAddedItems;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory Cart.fromJson(Map<String, dynamic> json) => Cart(
+    deliveryDate: json["deliveryDate"],
     deliverySlot: json["deliverySlot"],
-    prebookItems: List<PrebookItem>.from(json["prebookItems"].map((x) => PrebookItem.fromJson(x))),
+    cartAddedItems: List<CartAddedItem>.from(json["cartItems"].map((x) => CartAddedItem.fromJson(x))),
 
   );
 
   Map<String, dynamic> toJson() => {
+    "deliveryDate":deliveryDate,
     "deliverySlot": deliverySlot,
-    "prebookItems": List<dynamic>.from(prebookItems.map((x) => x.toJson())),
+    "cartItems": List<dynamic>.from(cartAddedItems.map((x) => x.toJson())),
 
   };
 }
 
-class PrebookItem {
-  PrebookItem({
+class CartAddedItem {
+  CartAddedItem({
     required this.itemId,
     required this.productName,
     required this.displayName,
@@ -91,7 +87,7 @@ class PrebookItem {
   double total;
   String caption;
 
-  factory PrebookItem.fromJson(Map<String, dynamic> json) => PrebookItem(
+  factory CartAddedItem.fromJson(Map<String, dynamic> json) => CartAddedItem(
     itemId: json["itemID"],
     productName: json["ProductName"],
     displayName: json["DisplayName"],

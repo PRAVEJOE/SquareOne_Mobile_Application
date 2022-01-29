@@ -4,9 +4,14 @@ import 'package:square_one_mobile_app/enums.dart';
 
 import 'components/body.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   static String routeName = "/profile";
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,5 +21,6 @@ class ProfileScreen extends StatelessWidget {
       body: Body(),
       bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),
     );
+
   }
 }

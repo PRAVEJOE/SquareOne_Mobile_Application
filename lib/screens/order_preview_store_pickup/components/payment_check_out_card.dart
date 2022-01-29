@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:square_one_mobile_app/components/default_button.dart';
+import 'package:square_one_mobile_app/screens/home/home_screen.dart';
+
 
 import '../../../size_config.dart';
 
-class PaymentCheckOut extends StatelessWidget {
+class PaymentCheckOut extends StatefulWidget {
   const PaymentCheckOut({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<PaymentCheckOut> createState() => _PaymentCheckOutState();
+}
+
+class _PaymentCheckOutState extends State<PaymentCheckOut> {
+  static const platform = const MethodChannel("razorpay_flutter");
+
+  late Razorpay _razorpay;
 
   @override
   Widget build(BuildContext context) {
@@ -56,12 +70,8 @@ class PaymentCheckOut extends StatelessWidget {
                   child: DefaultButton(
                     text: "Payment",
                     press: () {
-                      showToast(
-                          "Sorry!! No Payment Option there.. Under Development Stage",
-                          context: context,
-                          alignment: Alignment.center,
-                          position: StyledToastPosition(
-                              align: Alignment.topCenter, offset: 20.0));
+                      openCheckout();
+                      print("check");
                     },
                   ),
                 ),
@@ -72,4 +82,57 @@ class PaymentCheckOut extends StatelessWidget {
       ),
     );
   }
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void openCheckout() async {
+    var options = {
+      'key': 'rzp_test_Vy5c0b5Y5C6LOS',
+      'amount': 100,
+      'name': 'SquarOne HomeMade Treats',
+      'description': 'Cake',
+      'retry': {'enabled': true, 'max_count': 1},
+      'send_sms_hash': true,
+      'prefill': {'contact': '77366998836', 'email': 'pravejoe@gmail.com'},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId!, toastLength: Toast.LENGTH_SHORT);
+    Navigator.pushNamed(context, HomeScreen.routeName);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message!,
+        toastLength: Toast.LENGTH_SHORT);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName!, toastLength: Toast.LENGTH_SHORT);
+  }
 }
+

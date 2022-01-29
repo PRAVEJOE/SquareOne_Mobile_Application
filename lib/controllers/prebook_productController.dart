@@ -6,8 +6,8 @@ import 'package:square_one_mobile_app/services/remote_services.dart';
 
 class PrebookProductController extends GetxController {
   var isLoading = true.obs;
-  var productList = <Datum>[].obs;
-  var dateSlot = <Datum>[].obs;
+  var productList = <PrebookItem>[].obs;
+  var dateSlot = <PrebookItem>[].obs;
   var ab = 0;
 
   var prebookDate = "";
@@ -30,13 +30,13 @@ class PrebookProductController extends GetxController {
 
   Future<void> getPrebookItems() async {
     final requestParamPrebook =
-        RequestParamPrebook(date: prebookDate, time: prebookTime);
+        RequestParamPrebook(date: prebookDate);
 
     final result1 = await RemoteServices.getPrebookItems(requestParamPrebook);
     if (kDebugMode) {
       print(result1);
     }
-    productList.value = result1.data;
+    productList.value = result1.Cartitems;
   }
 // Future<void> getPrebookDateSot() async {
 //

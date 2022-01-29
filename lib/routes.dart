@@ -1,4 +1,6 @@
 import 'package:flutter/widgets.dart';
+import 'package:square_one_mobile_app/screens/addressEditdetails/details_screen.dart';
+import 'package:square_one_mobile_app/screens/addressManagement/addressManagementScreen.dart';
 import 'package:square_one_mobile_app/screens/cart/cart_screen.dart';
 import 'package:square_one_mobile_app/screens/chirstmas_special/christmas_screen.dart';
 import 'package:square_one_mobile_app/screens/complete_profile/complete_profile_screen.dart';
@@ -11,6 +13,7 @@ import 'package:square_one_mobile_app/screens/order_preview_home_delivery/order_
 import 'package:square_one_mobile_app/screens/order_preview_home_delivery_multi/order_preview_screen.dart';
 import 'package:square_one_mobile_app/screens/order_preview_store_pickup/order_preview_screen.dart';
 import 'package:square_one_mobile_app/screens/otp/otp_screen.dart';
+import 'package:square_one_mobile_app/screens/otpLoginSignUp/otpLoginSignUpScreen.dart';
 import 'package:square_one_mobile_app/screens/prebook/prebook_screen.dart';
 import 'package:square_one_mobile_app/screens/profile/profile_screen.dart';
 import 'package:square_one_mobile_app/screens/sign_in/sign_in_screen.dart';
@@ -40,5 +43,9 @@ final Map<String, WidgetBuilder> routes = {
   OrderPreviewHomeDelivery.routeName: (context) => OrderPreviewHomeDelivery(),
   Delivery_Options.routeName: (context) => Delivery_Options(),
   OrderPreviewHomeDeliveryMulti.routeName: (context) =>
-      OrderPreviewHomeDeliveryMulti()
+      OrderPreviewHomeDeliveryMulti(),
+  OtpLoginSignUp.routeName: (context) => OtpLoginSignUp(),
+  AddressManagement.routeName: (context) => AddressManagement(),
+  AddressEditDetailsScreen.routeName: (context) => AddressEditDetailsScreen(),
+
 };

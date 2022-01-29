@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:square_one_mobile_app/components/product_card_api.dart';
 import 'package:square_one_mobile_app/components/product_card_qty_without_add_to_cart.dart';
 import 'package:square_one_mobile_app/models/Cart.dart';
 
@@ -19,7 +20,7 @@ class _PreBookProductsState extends State<PreBookProducts> {
             child: Padding(
           padding: EdgeInsets.only(bottom: 10),
           child: ListView.builder(
-            itemCount: demoCarts.length,
+            itemCount: itemController.cart.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
               child: Dismissible(
@@ -43,7 +44,7 @@ class _PreBookProductsState extends State<PreBookProducts> {
                       ],
                     ),
                   ),
-                  child: ProductCardQtyWithOutAddToCart(cart: demoCarts[index])),
+                  child: ProductCardQtyWithOutAddToCart( cart: itemController.cart[index])),
             ),
           ),
         )),

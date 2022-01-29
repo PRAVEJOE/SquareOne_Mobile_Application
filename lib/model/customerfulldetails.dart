@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-Welcome customerFromJson(String str) => Welcome.fromJson(json.decode(str));
+CustomerDetails customerFromJson(String str) => CustomerDetails.fromJson(json.decode(str));
 
-String welcomeToJson(Welcome data) => json.encode(data.toJson());
+String welcomeToJson(CustomerDetails data) => json.encode(data.toJson());
 
-class Welcome {
-  Welcome({
+class CustomerDetails {
+  CustomerDetails({
     required this.result,
     required this.data,
   });
@@ -17,7 +17,7 @@ class Welcome {
   Result result;
   List<CustomerDetail> data;
 
-  factory Welcome.fromJson(Map<String, dynamic> json) => Welcome(
+  factory CustomerDetails.fromJson(Map<String, dynamic> json) => CustomerDetails(
     result: Result.fromJson(json["Result"]),
     data: List<CustomerDetail>.from(json["Data"].map((x) => CustomerDetail.fromJson(x))),
   );
@@ -149,6 +149,7 @@ class Address {
     this.pincode="",
     this.isGiftaddress="",
     this.kilometer="",
+    required this.hDfromShop
   });
 
   String addressId;
@@ -166,6 +167,7 @@ class Address {
   String pincode;
   String isGiftaddress;
   String kilometer;
+  int hDfromShop;
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
     addressId: json["AddressID"],
@@ -183,11 +185,11 @@ class Address {
     pincode: json["Pincode"],
     isGiftaddress: json["isGiftaddress"],
     kilometer: json["kilometer"],
+      hDfromShop:json["HDfromShop"]
   );
 
   Map<String, dynamic> toJson() => {
     "AddressID": addressId,
-    //"CustomerID": customerIdValues.reverse[customerId],
     "CustomerID": customerId,
     "AddressType": addressType,
     "FullName": fullName,
@@ -195,7 +197,6 @@ class Address {
     "alternativeNumber":alternativeNumber,
     "AddressPreferenceSequence": addressPreferenceSequence,
     "Address": address,
-    //"LandMark": landMarkValues.reverse[landMark],
     "LandMark": landMark,
     "Region": region,
     "HouseNumber":houseNumber,
@@ -203,6 +204,7 @@ class Address {
     "Pincode": pincode,
     "isGiftaddress": isGiftaddress,
     "kilometer": kilometer,
+    "HDfromShop":hDfromShop
   };
 }
 
@@ -213,34 +215,8 @@ final addressTypeValues = EnumValues({
   "Shop": AddressType.SHOP
 });
 
-// enum Phone { EMPTY, THE_9020937933 }
-//
-// final phoneValues = EnumValues({
-//   "": Phone.EMPTY,
-//   "9020937933": Phone.THE_9020937933
-// });
-//
-// enum CustomerId { PTM_6251, EMPTY }
-//
-// final customerIdValues = EnumValues({
-//   "": CustomerId.EMPTY,
-//   "PTM_6251": CustomerId.PTM_6251
-// });
-//
-// enum HouseNumber { EMPTY, SRA_34 }
-//
-// final houseNumberValues = EnumValues({
-//   "": HouseNumber.EMPTY,
-//   "Sra 34": HouseNumber.SRA_34
-// });
-
 enum LandMark { EMPTY, PATTOM, NEAR_CHURCH }
 
-// final landMarkValues = EnumValues({
-//   "": LandMark.EMPTY,
-//   "Near Church": LandMark.NEAR_CHURCH,
-//   "Pattom": LandMark.PATTOM
-// });
 
 class Result {
   Result({

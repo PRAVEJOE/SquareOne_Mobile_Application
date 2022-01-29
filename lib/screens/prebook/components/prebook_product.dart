@@ -3,6 +3,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:square_one_mobile_app/components/product_card_api.dart';
 import 'package:square_one_mobile_app/controllers/prebook_productController.dart';
+import 'package:square_one_mobile_app/controllers/tree_controller.dart';
 
 class PreBookProducts extends StatefulWidget {
   const PreBookProducts({Key? key}) : super(key: key);
@@ -39,8 +40,7 @@ class _PreBookProductsState extends State<PreBookProducts> {
 }
 
 input() {
-  final PrebookProductController productController =
-      Get.put(PrebookProductController());
+  final TreeController productController = Get.put(TreeController());
   return SingleChildScrollView(
       child: Padding(
     padding: const EdgeInsets.only(bottom: 5),
@@ -48,8 +48,8 @@ input() {
       alignment: WrapAlignment.spaceBetween,
       runSpacing: 25,
       children: [
-        ...List.generate(productController.productList.length, (index) {
-          return ProductCardAPI(productController.productList[index]);
+        ...List.generate(productController.productCategoryBased.length, (index) {
+          return ProductCardAPI(productController.productCategoryBased[index]);
           // here by default width and height is 0
         }),
       ],

@@ -16,11 +16,20 @@ class _CartScreenState extends State<CartScreen> {
   final ItemController itemController = Get.put(ItemController());
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+   // Navigator.pop(context,true);
+    return  WillPopScope(
+        onWillPop: () {
+      //trigger leaving and use own data
+      Navigator.pop(context, true);
+
+      //we need to return a future
+      return Future.value(false);
+    },child:Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
       bottomNavigationBar: CheckoutCard(),
-    );
+    ));
+
   }
 
   AppBar buildAppBar(BuildContext context) {

@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class IconBtnWithCounter extends StatelessWidget {
+class IconBtnWithCounter extends StatefulWidget {
   const IconBtnWithCounter({
     Key? key,
     required this.svgSrc,
@@ -17,10 +17,15 @@ class IconBtnWithCounter extends StatelessWidget {
   final GestureTapCallback press;
 
   @override
+  State<IconBtnWithCounter> createState() => _IconBtnWithCounterState();
+}
+
+class _IconBtnWithCounterState extends State<IconBtnWithCounter> {
+  @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(100),
-      onTap: press,
+      onTap: widget.press,
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -32,9 +37,9 @@ class IconBtnWithCounter extends StatelessWidget {
               color: kSecondaryColor.withOpacity(0.1),
               shape: BoxShape.circle,
             ),
-            child: SvgPicture.asset(svgSrc),
+            child: SvgPicture.asset(widget.svgSrc),
           ),
-          if (numOfItem != 0)
+          if (widget.numOfItem != 0)
             Positioned(
               top: -3,
               right: 0,
@@ -48,7 +53,7 @@ class IconBtnWithCounter extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "$numOfItem",
+                    "${widget.numOfItem}",
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(10),
                       height: 1,

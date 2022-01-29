@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:square_one_mobile_app/controllers/item_Controller.dart';
-import 'package:square_one_mobile_app/models/Cart.dart';
 
 import '../../../size_config.dart';
 import 'cart_card.dart';
-import 'check_out_card.dart';
 
 class Body extends StatefulWidget {
   @override
   _BodyState createState() => _BodyState();
 }
-final ItemController itemController = Get.put(ItemController());
+
+
+
 class _BodyState extends State<Body> {
   @override
+  final ItemController itemController = Get.put(ItemController());
   Widget build(BuildContext context) {
     return Padding(
       padding:
@@ -24,18 +25,13 @@ class _BodyState extends State<Body> {
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(itemController.cart[index].itemId.toString()),
+            key: UniqueKey(),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               setState(() {
                 itemController.removeProductToCart(index);
-               // itemController.cart.removeAt(index);
-                //itemController.totalPrice();
-                //CheckoutCard(totalPrice: itemController.totalPrice(),);
-                CheckoutCard();
-               // demoCarts.removeAt(index);
+                itemController.totalamount();
               });
-
             },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -50,9 +46,8 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-
-
-            child: CartCard(cart: itemController.cart[index],),
+            child: CartCard(cart: itemController.cart[index],
+            ),
           ),
         ),
       ),

@@ -150,7 +150,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void startTimer() {
     super.initState();
     const onsec = Duration(seconds: 1);
-    if (mounted) {
+
       timer = new Timer.periodic(onsec, (timer) async {
         if (start == 0) {
           setState(() {
@@ -165,7 +165,7 @@ class _OtpScreenState extends State<OtpScreen> {
           });
         }
       });
-    }
+
   }
 
   Widget otpField() {
